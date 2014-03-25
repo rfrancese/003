@@ -46,7 +46,7 @@ public class GameView extends View {
 	private TerraceMove trm;
 	private Cloud cloud;
 	private Terrace terra;
-	private Bitmap icon,ball,terrace;
+	private Bitmap icon,ball,terrace,obstacled_terrace;
 	private boolean jumping=false;
 	private ArrayList<Cloud>clA;
 	private ArrayList<CloudMove>clmA;
@@ -62,13 +62,16 @@ public class GameView extends View {
 	
 	private int onTerracenum=-1;
 	
+	private int maxObstacle=1;
+	
+	private int[] terracePos;
 	public GameView(Context c,int width,int height){
 		super(c);
 		this.c=c;
 		
 		this.width=width;
 		this.height=height;
-		
+
 		//per il salto
 		a=new BallJump();
 		
@@ -76,7 +79,7 @@ public class GameView extends View {
 		clA=new ArrayList<Cloud>();
 		//numero nuvole
 		cloudNum=1;
-		terraceNum=4;
+		terraceNum=6;
 		
 		icon = BitmapFactory.decodeResource(GameView.this.c.getResources(),
                 R.drawable.cloud_small);
@@ -84,6 +87,8 @@ public class GameView extends View {
                 R.drawable.ball);
 		terrace = BitmapFactory.decodeResource(GameView.this.c.getResources(),
                 R.drawable.terrace);
+		obstacled_terrace= BitmapFactory.decodeResource(GameView.this.c.getResources(),
+                R.drawable.obstacled_terrace);
 		
 		radius=ball.getHeight();
 		x=radius;
@@ -98,6 +103,35 @@ public class GameView extends View {
 		clmA=new ArrayList<CloudMove>();
 		trA=new ArrayList<Terrace>();
 		trmA=new ArrayList<TerraceMove>();
+
+		
+		//setto le posizioni dei terrazzi
+		
+		terracePos=new int[terraceNum];
+		
+		for(int i=0;i<terraceNum;i++){
+			terracePos[i]=proporzione(30*i);
+		}
+		
+		//creo nuvole e terrazzi
+		makeCloud();
+		makeTerraces();
+
+		//avvio il movimento laterale della palla
+		bm=new BallMove();
+		bm.start();	
+		
+		startListner();
+		onexec=true;
+		jumping=false;
+	}
+
+	
+	private int proporzione(int p){
+		p=((p*width)/480)-terrace.getWidth();
+		return p;
+	}
+	private void makeCloud(){
 		//creo e lancio tutte le nuvole
 		for(int i=0;i<cloudNum;i++){
 			int my=(int)Math.random()*height;
@@ -124,43 +158,42 @@ public class GameView extends View {
 			clm.start();	
 			clA.add(cloud);
 		}//fine ciclo for cloud
+	}
+	private void makeTerraces(){
 		
+		int numobs=0;
 		//creo e lancio tutti i terrazzamenti
 		for(int i=0;i<terraceNum;i++){
 			int my=(int)Math.random()*height;
-			int nx=(int)Math.random()*width;
-			
-			if(i>0){
-				nx+=trA.get(i-1).getX();
-				nx+=terrace.getWidth();
-			}
+				int nx=(int)Math.random()*width;
 				
-			Random rm=new Random(my);
-			Random rn=new Random(nx);
-
-			terra=new Terrace(
-					rn.nextInt(width),
+				if(i>0){
+					nx+=trA.get(i-1).getX();
+					nx+=terrace.getWidth();
+				}
+					
+				Random rm=new Random(my);
+				Random rn=new Random(nx);
+				terra=new Terrace(
+					terracePos[i],
 					rm.nextInt(height),
 					height,
 					width,
 					terrace.getWidth()
-				);
-			
-			trm=new TerraceMove(terra); 	
-			trA.add(terra);
-			trm.start();	
-			trmA.add(trm);
+					);
+				
+				Random ho=new Random();
+				if(numobs<=maxObstacle){
+					if(ho.nextBoolean())
+						terra.addObstacle();
+				}
+				
+				trm=new TerraceMove(terra); 	
+				trA.add(terra);
+				trm.start();	
+				trmA.add(trm);
 		}//fine ciclo for terrazzamenti
-
-		//avvio il movimento laterale della palla
-		bm=new BallMove();
-		bm.start();	
-		
-		startListner();
-		onexec=true;
-		jumping=false;
 	}
-
 	//disegna e ridisegna
 	@Override
 	public void onDraw(Canvas c){
@@ -170,14 +203,15 @@ public class GameView extends View {
 		for(int i=0;i<cloudNum;i++)
 			c.drawBitmap(icon, clA.get(i).getX(),clA.get(i).getY(),p);
 		
-		for(int i=0;i<terraceNum;i++)
-			c.drawBitmap(terrace, trA.get(i).getX(),trA.get(i).getY(),p);	
+		for(int i=0;i<terraceNum;i++){
+			if(!trA.get(i).hasObstacle())
+				c.drawBitmap(terrace, trA.get(i).getX(),trA.get(i).getY(),p);
+			else
+				c.drawBitmap(obstacled_terrace, trA.get(i).getX(),trA.get(i).getY(),p);
+		}
 		
 		c.drawBitmap(ball, b.getX(), b.getY(),p);	
 	}
-	
-	
-	
 	//movimento nuvole
 	class CloudMove extends Thread{
 		private Cloud cloud;

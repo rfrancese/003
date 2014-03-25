@@ -29,15 +29,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int bonus_start=0x7f020002;
         public static final int cloud_small=0x7f020003;
         public static final int ic_launcher=0x7f020004;
-        public static final int star1=0x7f020005;
-        public static final int star2=0x7f020006;
-        public static final int star3=0x7f020007;
-        public static final int star4=0x7f020008;
-        public static final int star5=0x7f020009;
-        public static final int star6=0x7f02000a;
-        public static final int star7=0x7f02000b;
-        public static final int star8=0x7f02000c;
-        public static final int terrace=0x7f02000d;
+        public static final int obstacled_terrace=0x7f020005;
+        public static final int star1=0x7f020006;
+        public static final int star2=0x7f020007;
+        public static final int star3=0x7f020008;
+        public static final int star4=0x7f020009;
+        public static final int star5=0x7f02000a;
+        public static final int star6=0x7f02000b;
+        public static final int star7=0x7f02000c;
+        public static final int star8=0x7f02000d;
+        public static final int terrace=0x7f02000e;
     }
     public static final class id {
         public static final int root=0x7f070000;
