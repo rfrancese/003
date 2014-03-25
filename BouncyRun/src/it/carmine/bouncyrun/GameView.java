@@ -184,8 +184,10 @@ public class GameView extends View {
 				
 				Random ho=new Random();
 				if(numobs<=maxObstacle){
-					if(ho.nextBoolean())
+					if(ho.nextBoolean()){
 						terra.addObstacle();
+						numobs++;
+					}
 				}
 				
 				trm=new TerraceMove(terra); 	
