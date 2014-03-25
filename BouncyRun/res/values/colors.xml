@@ -1,0 +1,7 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="bgcolor">#5cc5f2</color>
+    <color name="ballColor">#E52B50</color>
+
+</resources>
