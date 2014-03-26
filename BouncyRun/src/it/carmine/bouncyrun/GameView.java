@@ -109,8 +109,10 @@ public class GameView extends View {
 		
 		terracePos=new int[terraceNum];
 		
+		int prev=0;
 		for(int i=0;i<terraceNum;i++){
-			terracePos[i]=proporzione(30*i);
+			terracePos[i]=proporzione(30*i,prev);
+			prev=terracePos[i];
 		}
 		
 		//creo nuvole e terrazzi
@@ -127,8 +129,8 @@ public class GameView extends View {
 	}
 
 	
-	private int proporzione(int p){
-		p=((p*width)/480)-terrace.getWidth();
+	private int proporzione(int p,int previous){
+		p=((p*width)/480)+terrace.getWidth()+previous;
 		return p;
 	}
 	private void makeCloud(){
@@ -170,13 +172,21 @@ public class GameView extends View {
 				if(i>0){
 					nx+=trA.get(i-1).getX();
 					nx+=terrace.getWidth();
+					
 				}
 					
 				Random rm=new Random(my);
 				Random rn=new Random(nx);
+				
+				int pX=terracePos[i];
+				int pY=rm.nextInt(height);
+				if(i==0){
+					pX=terracePos[i];
+					pY=terracePos[i];
+				}
 				terra=new Terrace(
-					terracePos[i],
-					rm.nextInt(height),
+					pX,
+					pY,
 					height,
 					width,
 					terrace.getWidth()
