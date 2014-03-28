@@ -4,7 +4,7 @@ import it.carmine.bouncyrun.model.Spriter;
 
 public class Ball extends Spriter{
 	private int x,y,raggio,w,h;
-	private final int jump=140;
+	private final int jump=200;
 	private final int relativeH=320;
 	
 	public Ball(int x,int y,int raggio,int w,int h){
