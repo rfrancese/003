@@ -60,7 +60,7 @@ public class GameView extends View {
 	private int onTerracenum=-1;
 	
 	private final int cloudNum=1;
-	private final int terraceNum=3;
+	private final int terraceNum=4;
 	private int maxObstacle=1;
 	
 	private int[] terracePos;
