@@ -19,8 +19,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import android.os.AsyncTask;
-import android.os.Build;
 
 import android.util.Log;
 
@@ -53,7 +51,6 @@ public class GameView extends View {
 	private ArrayList<Terrace>trA;
 	private ArrayList<TerraceMove>trmA;
 	
-	private final int cloudNum,terraceNum;
 	private float vector_x,vector_y;
 	private BallMove bm;
 	private boolean onexec;
@@ -62,9 +59,13 @@ public class GameView extends View {
 	
 	private int onTerracenum=-1;
 	
+	private final int cloudNum=1;
+	private final int terraceNum=3;
 	private int maxObstacle=1;
 	
 	private int[] terracePos;
+	
+	private final int dpDelta = 30;
 	public GameView(Context c,int width,int height){
 		super(c);
 		this.c=c;
@@ -77,9 +78,6 @@ public class GameView extends View {
 		
 		//array per le nuvole
 		clA=new ArrayList<Cloud>();
-		//numero nuvole
-		cloudNum=1;
-		terraceNum=6;
 		
 		icon = BitmapFactory.decodeResource(GameView.this.c.getResources(),
                 R.drawable.cloud_small);
@@ -104,14 +102,12 @@ public class GameView extends View {
 		trA=new ArrayList<Terrace>();
 		trmA=new ArrayList<TerraceMove>();
 
-		
 		//setto le posizioni dei terrazzi
-		
 		terracePos=new int[terraceNum];
 		
 		int prev=0;
 		for(int i=0;i<terraceNum;i++){
-			terracePos[i]=proporzione(30*i,prev);
+			terracePos[i]=proporzione(dpDelta*i,prev);
 			prev=terracePos[i];
 		}
 		
@@ -171,10 +167,8 @@ public class GameView extends View {
 				
 				if(i>0){
 					nx+=trA.get(i-1).getX();
-					nx+=terrace.getWidth();
-					
+					nx+=terrace.getWidth();	
 				}
-					
 				Random rm=new Random(my);
 				Random rn=new Random(nx);
 				
@@ -189,11 +183,13 @@ public class GameView extends View {
 					pY,
 					height,
 					width,
-					terrace.getWidth()
+					terrace.getWidth(),
+					proporzione(dpDelta,0)
 					);
 				
 				Random ho=new Random();
-				if(numobs<=maxObstacle){
+				
+				if(numobs<maxObstacle){
 					if(ho.nextBoolean()){
 						terra.addObstacle();
 						numobs++;
@@ -210,7 +206,6 @@ public class GameView extends View {
 	@Override
 	public void onDraw(Canvas c){
 		super.onDraw(c);
-		
 		//stampo tutte le nuvole!
 		for(int i=0;i<cloudNum;i++)
 			c.drawBitmap(icon, clA.get(i).getX(),clA.get(i).getY(),p);

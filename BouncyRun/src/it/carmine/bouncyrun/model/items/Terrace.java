@@ -6,14 +6,17 @@ public class Terrace extends Spriter{
 
 	private int size;
 	private boolean hasobstacle;
-	
-	public Terrace(int x,int y,int h,int w,int size){
+	private final int startx;
+	private final int delta;
+	public Terrace(int x,int y,int h,int w,int size,int d){
 		super(x,y,w,h);
 		this.size=size;
+		startx=x;
+		delta=d;
 	}
 	public int move(){
 		if(getX()<(size*-1)){
-			setX(getW()+size);
+			setX(getW());
 			setY((int) (Math.random()*getH()));
 		}else{
 			setX(getX()-1);
