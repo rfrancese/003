@@ -241,10 +241,8 @@ public class GameView extends View {
 		
 		if(invertStar){
 			c.drawBitmap(star2,star.getX(),star.getY(),p);
-			invertStar=false;
 		}else{
 			c.drawBitmap(star1,star.getX(),star.getY(),p);
-			invertStar=true;
 		}
 		c.drawBitmap(ball, b.getX(), b.getY(),p);	
 	}
@@ -287,8 +285,13 @@ public class GameView extends View {
 				}
 				star.move();
 				postInvalidateDelayed(1);
+				invertStar();
 			}
 			//return null;
+		}
+		private void invertStar(){
+			if(invertStar) invertStar=false;
+			else invertStar=true;
 		}
 	}
 	//classe che muove i terrazzini
