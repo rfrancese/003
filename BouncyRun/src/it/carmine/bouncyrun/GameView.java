@@ -2,6 +2,7 @@ package it.carmine.bouncyrun;
 
 import it.carmine.bouncyrun.model.items.Ball;
 import it.carmine.bouncyrun.model.items.Cloud;
+import it.carmine.bouncyrun.model.items.Star;
 import it.carmine.bouncyrun.model.items.Terrace;
 
 import java.util.ArrayList;
@@ -30,6 +31,9 @@ public class GameView extends View {
 	private final int sleepCloud=200;
 	private final int sleepTerrace=15;
 	private final int sleepBall=5;
+	private final int sleepStar=250;
+	
+	private boolean invertStar;
 	
 	private Context c;
 	private int x,y,radius;
@@ -44,7 +48,8 @@ public class GameView extends View {
 	private TerraceMove trm;
 	private Cloud cloud;
 	private Terrace terra;
-	private Bitmap icon,ball,terrace,obstacled_terrace;
+	private Star star;
+	private Bitmap icon,ball,terrace,obstacled_terrace,star1,star2;
 	private boolean jumping=false;
 	private ArrayList<Cloud>clA;
 	private ArrayList<CloudMove>clmA;
@@ -66,6 +71,9 @@ public class GameView extends View {
 	private int[] terracePos;
 	
 	private final int dpDelta = 30;
+	
+	private StarMove smv;
+	
 	public GameView(Context c,int width,int height){
 		super(c);
 		this.c=c;
@@ -87,6 +95,11 @@ public class GameView extends View {
                 R.drawable.terrace);
 		obstacled_terrace= BitmapFactory.decodeResource(GameView.this.c.getResources(),
                 R.drawable.obstacled_terrace);
+		star1=BitmapFactory.decodeResource(GameView.this.c.getResources(),
+                R.drawable.star1);
+		star2=BitmapFactory.decodeResource(GameView.this.c.getResources(),
+                R.drawable.star2);
+		
 		
 		radius=ball.getHeight();
 		x=radius;
@@ -120,6 +133,15 @@ public class GameView extends View {
 		bm.start();	
 		
 		startListner();
+		
+		//creo la stella
+		int my=(int)Math.random()*height;
+		int nx=(int)Math.random()*width;
+		star=new Star(nx,my,width,height,star1.getWidth());
+		smv=new StarMove(star);
+		smv.start();
+		
+		//setto le flags
 		onexec=true;
 		jumping=false;
 	}
@@ -217,6 +239,13 @@ public class GameView extends View {
 				c.drawBitmap(obstacled_terrace, trA.get(i).getX(),trA.get(i).getY(),p);
 		}
 		
+		if(invertStar){
+			c.drawBitmap(star2,star.getX(),star.getY(),p);
+			invertStar=false;
+		}else{
+			c.drawBitmap(star1,star.getX(),star.getY(),p);
+			invertStar=true;
+		}
 		c.drawBitmap(ball, b.getX(), b.getY(),p);	
 	}
 	//movimento nuvole
@@ -240,6 +269,26 @@ public class GameView extends View {
 		}
 		public Cloud getCloud(){
 			return cloud;
+		}
+	}
+	
+	class StarMove extends Thread{
+		private Star star;
+		StarMove(Star s){
+			this.star=s;
+		}
+		@Override
+		public void run() {
+			while(!this.isInterrupted()){
+				try {
+					Thread.sleep(sleepStar);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				star.move();
+				postInvalidateDelayed(1);
+			}
+			//return null;
 		}
 	}
 	//classe che muove i terrazzini
@@ -319,6 +368,7 @@ public class GameView extends View {
 		for(int i=0;i<trmA.size();i++)
 			trmA.get(i).interrupt();
 		bm.interrupt();
+		smv.interrupt();
 	}
 	//ricomincio tutto
 	public void resumeAllExecution(){
@@ -341,6 +391,8 @@ public class GameView extends View {
 			bm=new BallMove();
 			bm.start();
 			
+			smv=new StarMove(star);
+			smv.start();
 			onexec=true;
 		}
 	}
