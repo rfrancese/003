@@ -13,6 +13,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 import android.hardware.Sensor;
@@ -49,7 +50,7 @@ public class GameView extends View {
 	private Cloud cloud;
 	private Terrace terra;
 	private Star star;
-	private Bitmap icon,ball,terrace,obstacled_terrace,star1,star2;
+	private Bitmap icon,ball,terrace,obstacled_terrace,star1,star2,broke_ball;
 	private boolean jumping=false;
 	private ArrayList<Cloud>clA;
 	private ArrayList<CloudMove>clmA;
@@ -61,6 +62,8 @@ public class GameView extends View {
 	private boolean onexec;
 	
 	private boolean isOnTerrace;
+	
+	private boolean gameFinish=false;
 	
 	private int onTerracenum=-1;
 	
@@ -91,6 +94,8 @@ public class GameView extends View {
                 R.drawable.cloud_small);
 		ball = BitmapFactory.decodeResource(GameView.this.c.getResources(),
                 R.drawable.ball);
+		broke_ball=BitmapFactory.decodeResource(GameView.this.c.getResources(),
+                R.drawable.broke_ball);
 		terrace = BitmapFactory.decodeResource(GameView.this.c.getResources(),
                 R.drawable.terrace);
 		obstacled_terrace= BitmapFactory.decodeResource(GameView.this.c.getResources(),
@@ -231,20 +236,36 @@ public class GameView extends View {
 		//stampo tutte le nuvole!
 		for(int i=0;i<cloudNum;i++)
 			c.drawBitmap(icon, clA.get(i).getX(),clA.get(i).getY(),p);
-		
+		//stella bonus
+		if(invertStar){
+			c.drawBitmap(star2,star.getX(),star.getY(),p);
+		}else{
+			c.drawBitmap(star1,star.getX(),star.getY(),p);
+		}
+		//ostacolo
 		for(int i=0;i<terraceNum;i++){
 			if(!trA.get(i).hasObstacle())
 				c.drawBitmap(terrace, trA.get(i).getX(),trA.get(i).getY(),p);
 			else
 				c.drawBitmap(obstacled_terrace, trA.get(i).getX(),trA.get(i).getY(),p);
 		}
-		
-		if(invertStar){
-			c.drawBitmap(star2,star.getX(),star.getY(),p);
-		}else{
-			c.drawBitmap(star1,star.getX(),star.getY(),p);
-		}
+		//palla
 		c.drawBitmap(ball, b.getX(), b.getY(),p);	
+		//controllos e game over devo finire e stampare il punteggio
+		if(gameFinish){
+			p.setTextSize(40);
+			p.setColor(Color.WHITE);
+			c.drawText("GAME OVER", width/2, height/2, p);
+			c.drawBitmap(broke_ball, b.getX(), b.getY(),p);
+		}
+	}
+	
+	//se è game over
+	private void gameOver(){
+		gameFinish=true;
+		stopListner();
+		stopAllExecution();
+		invalidate();
 	}
 	//movimento nuvole
 	class CloudMove extends Thread{
@@ -302,7 +323,7 @@ public class GameView extends View {
 		}
 		@Override
 		public void run() {
-			while(!this.isInterrupted()){
+			while(!this.isInterrupted() || !gameFinish){
 				try {
 					Thread.sleep(sleepTerrace);
 				} catch (InterruptedException e) {
@@ -402,13 +423,14 @@ public class GameView extends View {
 	
 	//controllo che la palla sia sul terrazzo
 	
-	private int isOnTerrace(Ball b){
+	private int isOnTerrace(Ball b) throws GameOverException{
 		for(int i=0;i<terraceNum;i++)
 			//getWidth/2 per determinare il centro
 			if(b.getX()+(ball.getWidth()/2) > trA.get(i).getX()){//la palla è oltre il bordo sx
 				if(b.getX() < trA.get(i).getX()+terrace.getWidth()){//la palla non è oltre il bordo dx
 					if((b.getY()+(ball.getHeight()/2)) == (trA.get(i).getY()-terrace.getHeight())){//palla sopra la barra - perché è a scendere!
-						return i;
+						if(trA.get(i).hasObstacle()) throw new GameOverException();
+						else return i;
 					}
 				}
 			}
@@ -429,14 +451,19 @@ public class GameView extends View {
 			return false;
 		}
 		//se sono su un terrazzino devo fermare e risaltare
-		if(isOnTerrace(b)>=0){
-			if(a!=null && a.isAlive()){
-				a.interrupt();
+		//se il terrazzino è spinato allora è game over
+		try {
+			if(isOnTerrace(b)>=0){
+				if(a!=null && a.isAlive()){
+					a.interrupt();
+				}
+				a=new BallJump();
+				a.start();
+				jumping=true;
+				return false;
 			}
-			a=new BallJump();
-			a.start();
-			jumping=true;
-			return false;
+		} catch (GameOverException e) {
+			gameOver();
 		}
 		return false;
 	}
@@ -491,6 +518,9 @@ public class GameView extends View {
 				}catch (InterruptedException e) {
 					jumping=false;
 					return;
+				} catch (GameOverException e) {
+					interrupt();
+					gameOver();
 				}
 			}
 			jumping=false;
