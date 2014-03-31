@@ -265,7 +265,7 @@ public class GameView extends View {
 		gameFinish=true;
 		stopListner();
 		stopAllExecution();
-		invalidate();
+		postInvalidateDelayed(1);
 	}
 	//movimento nuvole
 	class CloudMove extends Thread{
@@ -275,11 +275,11 @@ public class GameView extends View {
 		}
 		@Override
 		public void run() {
-			while(!this.isInterrupted()){
+			while(!this.isInterrupted() && !gameFinish){
 				try {
 					Thread.sleep(sleepCloud);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					//
 				}
 				cloud.move();
 				postInvalidateDelayed(1);
@@ -298,11 +298,11 @@ public class GameView extends View {
 		}
 		@Override
 		public void run() {
-			while(!this.isInterrupted()){
+			while(!this.isInterrupted() && !gameFinish){
 				try {
 					Thread.sleep(sleepStar);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					//
 				}
 				star.move();
 				postInvalidateDelayed(1);
@@ -323,11 +323,11 @@ public class GameView extends View {
 		}
 		@Override
 		public void run() {
-			while(!this.isInterrupted() || !gameFinish){
+			while(!this.isInterrupted() && !gameFinish){
 				try {
 					Thread.sleep(sleepTerrace);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					//
 				}
 				terra.move();
 				postInvalidateDelayed(1);
@@ -343,11 +343,11 @@ public class GameView extends View {
 	class BallMove extends Thread{
 		@Override
 		public void run() {
-			while(!this.isInterrupted()){
+			while(!this.isInterrupted() && !gameFinish){
 				try {
 					Thread.sleep(sleepBall);
 				} catch (InterruptedException e) {
-					Log.i("interrupted exception",e.toString());
+					//Log.i("interrupted exception",e.toString());
 				}
 				//sposto
 				if(vector_y>3){
@@ -441,29 +441,31 @@ public class GameView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		super.onTouchEvent(event);	
-		if(!jumping){
-			if(a!=null){
-				if(a.isAlive()) a.interrupt();
-			}
-			a=new BallJump();
-			a.start();
-			jumping=true;
-			return false;
-		}
-		//se sono su un terrazzino devo fermare e risaltare
-		//se il terrazzino è spinato allora è game over
-		try {
-			if(isOnTerrace(b)>=0){
-				if(a!=null && a.isAlive()){
-					a.interrupt();
+		if(!gameFinish){
+			if(!jumping){
+				if(a!=null){
+					if(a.isAlive()) a.interrupt();
 				}
 				a=new BallJump();
 				a.start();
 				jumping=true;
 				return false;
 			}
-		} catch (GameOverException e) {
-			gameOver();
+			//se sono su un terrazzino devo fermare e risaltare
+			//se il terrazzino è spinato allora è game over
+			try {
+				if(isOnTerrace(b)>=0){
+					if(a!=null && a.isAlive()){
+						a.interrupt();
+					}
+					a=new BallJump();
+					a.start();
+					jumping=true;
+					return false;
+				}
+			} catch (GameOverException e) {
+				gameOver();
+			}
 		}
 		return false;
 	}
@@ -488,7 +490,7 @@ public class GameView extends View {
 					//invalida per ridisegnare
 					postInvalidateDelayed(1);
 				}catch (InterruptedException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 			boolean forceExit=true;
