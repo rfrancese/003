@@ -15,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -255,6 +256,9 @@ public class GameView extends View {
 		if(gameFinish){
 			p.setTextSize(40);
 			p.setColor(Color.WHITE);
+			Typeface tf = Typeface.createFromAsset(GameView.this.c.getAssets(),
+	        		"font/pipe.ttf");
+			p.setTypeface(tf);
 			c.drawText("GAME OVER", width/2, height/2, p);
 			c.drawBitmap(broke_ball, b.getX(), b.getY(),p);
 		}
