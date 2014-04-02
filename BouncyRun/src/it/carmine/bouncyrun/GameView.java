@@ -4,6 +4,9 @@ import it.carmine.bouncyrun.model.items.Ball;
 import it.carmine.bouncyrun.model.items.Cloud;
 import it.carmine.bouncyrun.model.items.Star;
 import it.carmine.bouncyrun.model.items.Terrace;
+import it.carmine.bouncyrun.threads.CloudMove;
+import it.carmine.bouncyrun.threads.StarMove;
+import it.carmine.bouncyrun.threads.TerraceMove;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -144,7 +147,7 @@ public class GameView extends View {
 		int my=(int)Math.random()*height;
 		int nx=(int)Math.random()*width;
 		star=new Star(nx,my,width,height,star1.getWidth());
-		smv=new StarMove(star);
+		smv=new StarMove(star,sleepStar,GameView.this);
 		smv.start();
 		
 		//setto le flags
@@ -178,7 +181,7 @@ public class GameView extends View {
 					icon.getWidth()
 					);
 			
-			clm=new CloudMove(cloud); 	
+			clm=new CloudMove(cloud,sleepCloud,this); 	
 			clmA.add(clm);
 				
 			clm.start();	
@@ -224,7 +227,7 @@ public class GameView extends View {
 					}
 				}
 				
-				trm=new TerraceMove(terra); 	
+				trm=new TerraceMove(terra,sleepTerrace,this); 	
 				trA.add(terra);
 				trm.start();	
 				trmA.add(trm);
@@ -238,7 +241,7 @@ public class GameView extends View {
 		for(int i=0;i<cloudNum;i++)
 			c.drawBitmap(icon, clA.get(i).getX(),clA.get(i).getY(),p);
 		//stella bonus
-		if(invertStar){
+		if(smv.getStarStatus()){
 			c.drawBitmap(star2,star.getX(),star.getY(),p);
 		}else{
 			c.drawBitmap(star1,star.getX(),star.getY(),p);
@@ -271,78 +274,7 @@ public class GameView extends View {
 		stopAllExecution();
 		postInvalidateDelayed(1);
 	}
-	//movimento nuvole
-	class CloudMove extends Thread{
-		private Cloud cloud;
-		CloudMove(Cloud cloud){
-			this.cloud=cloud;
-		}
-		@Override
-		public void run() {
-			while(!this.isInterrupted() && !gameFinish){
-				try {
-					Thread.sleep(sleepCloud);
-				} catch (InterruptedException e) {
-					//
-				}
-				cloud.move();
-				postInvalidateDelayed(1);
-			}
-			//return null;
-		}
-		public Cloud getCloud(){
-			return cloud;
-		}
-	}
-	
-	class StarMove extends Thread{
-		private Star star;
-		StarMove(Star s){
-			this.star=s;
-		}
-		@Override
-		public void run() {
-			while(!this.isInterrupted() && !gameFinish){
-				try {
-					Thread.sleep(sleepStar);
-				} catch (InterruptedException e) {
-					//
-				}
-				star.move();
-				postInvalidateDelayed(1);
-				invertStar();
-			}
-			//return null;
-		}
-		private void invertStar(){
-			if(invertStar) invertStar=false;
-			else invertStar=true;
-		}
-	}
-	//classe che muove i terrazzini
-	class TerraceMove extends Thread{
-		private Terrace terra;
-		TerraceMove(Terrace terra){
-			this.terra=terra;
-		}
-		@Override
-		public void run() {
-			while(!this.isInterrupted() && !gameFinish){
-				try {
-					Thread.sleep(sleepTerrace);
-				} catch (InterruptedException e) {
-					//
-				}
-				terra.move();
-				postInvalidateDelayed(1);
-			}
-			//return null;
-		}
-		public Terrace getTerrace(){
-			return terra;
-		}
-	}
-	
+
 	
 	class BallMove extends Thread{
 		@Override
@@ -405,13 +337,13 @@ public class GameView extends View {
 			ArrayList<CloudMove>cc=new ArrayList<CloudMove>();
 			ArrayList<TerraceMove>tt=new ArrayList<TerraceMove>();
 			for(int i=0;i<clmA.size();i++){
-				cc.add(new CloudMove(clmA.get(i).getCloud()));
+				cc.add(new CloudMove(clmA.get(i).getCloud(),sleepCloud,GameView.this));
 				cc.get(i).start();	
 			}
 			clmA=cc;
 			//riavvio i terrazzini
 			for(int i=0;i<trmA.size();i++){
-				tt.add(new TerraceMove(trmA.get(i).getTerrace()));
+				tt.add(new TerraceMove(trmA.get(i).getTerrace(),sleepTerrace,GameView.this));
 				tt.get(i).start();	
 			}
 			trmA=tt;
@@ -419,7 +351,7 @@ public class GameView extends View {
 			bm=new BallMove();
 			bm.start();
 			
-			smv=new StarMove(star);
+			smv=new  StarMove(star,sleepStar,GameView.this);
 			smv.start();
 			onexec=true;
 		}
