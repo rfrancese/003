@@ -8,18 +8,20 @@ public class CloudMove extends Thread{
 	private Cloud cloud;
 	private int sleepCloud;
 	private View v;
+	private boolean muststop;
 	public CloudMove(Cloud cloud,int sleepCloud,GameView v){
 		this.cloud=cloud;
 		this.sleepCloud=sleepCloud;
 		this.v=v;
+		muststop=true;
 	}
 	@Override
 	public void run() {
-		while(!this.isInterrupted()){
+		while(!this.isInterrupted() && muststop){
 			try {
 				Thread.sleep(sleepCloud);
 			} catch (InterruptedException e) {
-				//
+				return;
 			}
 			cloud.move();
 			v.postInvalidateDelayed(1);
@@ -29,4 +31,8 @@ public class CloudMove extends Thread{
 	public Cloud getCloud(){
 		return cloud;
 	}
+	 public void interrupt() {
+		 super.interrupt();		  
+		 muststop=false;
+	 } 
 }

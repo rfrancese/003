@@ -8,18 +8,21 @@ public class TerraceMove extends Thread{
 	private Terrace terra;
 	private int sleepTerrace;
 	private View v;
+	private boolean muststop;
+	
 	public TerraceMove(Terrace terra, int sleepTerrace,GameView v){
 		this.terra=terra;
 		this.sleepTerrace=sleepTerrace;
 		this.v=v;
+		muststop=true;
 	}
 	@Override
 	public void run() {
-		while(!this.isInterrupted()){
+		while(!this.isInterrupted() && muststop){
 			try {
 				Thread.sleep(sleepTerrace);
 			} catch (InterruptedException e) {
-				//
+				return;
 			}
 			terra.move();
 			v.postInvalidateDelayed(1);
@@ -29,4 +32,10 @@ public class TerraceMove extends Thread{
 	public Terrace getTerrace(){
 		return terra;
 	}
+	
+	
+	 public void interrupt() {
+		 super.interrupt();		  
+		 muststop=false;
+	 } 
 }

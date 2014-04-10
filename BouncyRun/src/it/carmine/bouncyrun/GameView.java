@@ -1,5 +1,6 @@
 package it.carmine.bouncyrun;
 
+import it.carmine.bouncyrun.model.GameOverText;
 import it.carmine.bouncyrun.model.items.Ball;
 import it.carmine.bouncyrun.model.items.Cloud;
 import it.carmine.bouncyrun.model.items.Star;
@@ -262,7 +263,9 @@ public class GameView extends View {
 			Typeface tf = Typeface.createFromAsset(GameView.this.c.getAssets(),
 	        		"font/pipe.ttf");
 			p.setTypeface(tf);
-			c.drawText("GAME OVER", width/2, height/2, p);
+			GameOverText gowt=new GameOverText(width,height,(int) p.getTextSize());
+			
+			c.drawText("GAME OVER", gowt.getX(), gowt.getY(), p);
 			c.drawBitmap(broke_ball, b.getX(), b.getY(),p);
 		}
 	}

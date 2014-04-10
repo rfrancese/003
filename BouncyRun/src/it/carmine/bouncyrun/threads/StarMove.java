@@ -9,18 +9,20 @@ public class StarMove extends Thread{
 	private int sleepStar;
 	private View v;
 	private boolean invertStar;
+	private boolean muststop;
 	public StarMove(Star s,int sleepStar,GameView v){
 		this.star=s;
 		this.sleepStar=sleepStar;
 		this.v=v;
+		muststop=true;
 	}
 	@Override
 	public void run() {
-		while(!this.isInterrupted()){
+		while(!this.isInterrupted() && muststop){
 			try {
 				Thread.sleep(sleepStar);
 			} catch (InterruptedException e) {
-				//
+				return;
 			}
 			star.move();
 			v.postInvalidateDelayed(1);
@@ -35,4 +37,8 @@ public class StarMove extends Thread{
 	public boolean getStarStatus(){
 		return invertStar;
 	}
+	 public void interrupt() {
+		 super.interrupt();		  
+		 muststop=false;
+	 } 
 }
