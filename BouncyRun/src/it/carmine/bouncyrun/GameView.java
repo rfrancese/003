@@ -82,6 +82,7 @@ public class GameView extends View {
 	
 	private StarMove smv;
 	
+	private String nick;
 	public GameView(Context c,int width,int height){
 		super(c);
 		this.c=c;
@@ -133,14 +134,10 @@ public class GameView extends View {
 			terracePos[i]=proporzione(dpDelta*i,prev);
 			prev=terracePos[i];
 		}
-		
-		//creo nuvole e terrazzi
-		makeCloud();
-		makeTerraces();
 
 		//avvio il movimento laterale della palla
 		bm=new BallMove();
-		bm.start();	
+			
 		
 		startListner();
 		
@@ -149,13 +146,21 @@ public class GameView extends View {
 		int nx=(int)Math.random()*width;
 		star=new Star(nx,my,width,height,star1.getWidth());
 		smv=new StarMove(star,sleepStar,GameView.this);
-		smv.start();
+		
 		
 		//setto le flags
 		onexec=true;
 		jumping=false;
 	}
 
+	public void startGame(String nick){
+		bm.start();
+		smv.start();
+		//creo nuvole e terrazzi
+		makeCloud();
+		makeTerraces();
+		this.nick=nick;
+	}
 	
 	private int proporzione(int p,int previous){
 		p=((p*width)/480)+terrace.getWidth()+previous;

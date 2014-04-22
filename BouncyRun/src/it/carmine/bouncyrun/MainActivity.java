@@ -1,10 +1,16 @@
 package it.carmine.bouncyrun;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 
@@ -30,6 +36,23 @@ public class MainActivity extends Activity {
 		gw=new GameView(this,width,height);
 		gw.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 
 				LayoutParams.MATCH_PARENT));
+		
+		
+		final Dialog dialog = new Dialog(this,R.style.PauseDialog);
+		dialog.setContentView(R.layout.custom_alert_start);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
+		Button b=(Button) dialog.findViewById(R.id.button1);
+		b.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				EditText et=(EditText)dialog.findViewById(R.id.editText1);
+				gw.startGame(et.getText().toString());
+				dialog.dismiss();
+			}
+		});
+		
+		dialog.show();
 		
 		fl.addView(gw);
 		setContentView(fl);

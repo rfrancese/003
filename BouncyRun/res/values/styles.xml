@@ -13,10 +13,6 @@
         -->
     </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>
@@ -35,4 +31,15 @@
 
     <style name="ButtonBarButton" />
 
+    
+    <style name="AppTheme" parent="android:Theme.Light" />
+		<style name="PauseDialog" parent="@android:style/Theme.Dialog">
+    	<item name="android:windowAnimationStyle">@style/PauseDialogAnimation</item>
+	</style>
+
+	<style name="PauseDialogAnimation">
+    	<item name="android:windowEnterAnimation">@anim/fadein</item>
+    	<item name="android:windowExitAnimation">@anim/fadeout</item>
+	</style>
+    
 </resources>
