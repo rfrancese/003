@@ -82,6 +82,7 @@ public class GameView extends View {
 	
 	private StarMove smv;
 	
+	private boolean isStarted;
 	private String nick;
 	public GameView(Context c,int width,int height){
 		super(c);
@@ -147,19 +148,24 @@ public class GameView extends View {
 		star=new Star(nx,my,width,height,star1.getWidth());
 		smv=new StarMove(star,sleepStar,GameView.this);
 		
-		
-		//setto le flags
-		onexec=true;
-		jumping=false;
 	}
 
 	public void startGame(String nick){
-		bm.start();
-		smv.start();
+		if(!bm.isAlive())
+			bm.start();
+		if(!smv.isAlive())
+			smv.start();
+		
 		//creo nuvole e terrazzi
 		makeCloud();
 		makeTerraces();
 		this.nick=nick;
+		
+		//setto le flags
+		onexec=true;
+		jumping=false;
+		//inizio il gioco
+		isStarted=true;
 	}
 	
 	private int proporzione(int p,int previous){
@@ -243,35 +249,38 @@ public class GameView extends View {
 	@Override
 	public void onDraw(Canvas c){
 		super.onDraw(c);
-		//stampo tutte le nuvole!
-		for(int i=0;i<cloudNum;i++)
-			c.drawBitmap(icon, clA.get(i).getX(),clA.get(i).getY(),p);
-		//stella bonus
-		if(smv.getStarStatus()){
-			c.drawBitmap(star2,star.getX(),star.getY(),p);
-		}else{
-			c.drawBitmap(star1,star.getX(),star.getY(),p);
-		}
-		//ostacolo
-		for(int i=0;i<terraceNum;i++){
-			if(!trA.get(i).hasObstacle())
-				c.drawBitmap(terrace, trA.get(i).getX(),trA.get(i).getY(),p);
-			else
-				c.drawBitmap(obstacled_terrace, trA.get(i).getX(),trA.get(i).getY(),p);
-		}
-		//palla
-		c.drawBitmap(ball, b.getX(), b.getY(),p);	
-		//controllos e game over devo finire e stampare il punteggio
-		if(gameFinish){
-			p.setTextSize(40);
-			p.setColor(Color.WHITE);
-			Typeface tf = Typeface.createFromAsset(GameView.this.c.getAssets(),
-	        		"font/pipe.ttf");
-			p.setTypeface(tf);
-			GameOverText gowt=new GameOverText(width,height,(int) p.getTextSize());
+		
+		if(isStarted){
+			//stampo tutte le nuvole!
+			for(int i=0;i<cloudNum;i++)
+				c.drawBitmap(icon, clA.get(i).getX(),clA.get(i).getY(),p);
+			//stella bonus
+			if(smv.getStarStatus()){
+				c.drawBitmap(star2,star.getX(),star.getY(),p);
+			}else{
+				c.drawBitmap(star1,star.getX(),star.getY(),p);
+			}
+			//ostacolo
+			for(int i=0;i<terraceNum;i++){
+				if(!trA.get(i).hasObstacle())
+					c.drawBitmap(terrace, trA.get(i).getX(),trA.get(i).getY(),p);
+				else
+					c.drawBitmap(obstacled_terrace, trA.get(i).getX(),trA.get(i).getY(),p);
+			}
+			//palla
+			c.drawBitmap(ball, b.getX(), b.getY(),p);	
+			//controllos e game over devo finire e stampare il punteggio
+			if(gameFinish){
+				p.setTextSize(40);
+				p.setColor(Color.WHITE);
+				Typeface tf = Typeface.createFromAsset(GameView.this.c.getAssets(),
+						"font/pipe.ttf");
+				p.setTypeface(tf);
+				GameOverText gowt=new GameOverText(width,height,(int) p.getTextSize());
 			
-			c.drawText("GAME OVER", gowt.getX(), gowt.getY(), p);
-			c.drawBitmap(broke_ball, b.getX(), b.getY(),p);
+				c.drawText("GAME OVER", gowt.getX(), gowt.getY(), p);
+				c.drawBitmap(broke_ball, b.getX(), b.getY(),p);
+			}
 		}
 	}
 	

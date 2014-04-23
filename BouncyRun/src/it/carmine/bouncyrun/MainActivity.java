@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 
 public class MainActivity extends Activity {
 
+	private boolean hasStart;
 	GameView gw;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,13 @@ public class MainActivity extends Activity {
 		gw.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 
 				LayoutParams.MATCH_PARENT));
 		
-		
+		fl.addView(gw);
+		setContentView(fl);
+			
+
 		final Dialog dialog = new Dialog(this,R.style.PauseDialog);
-		dialog.setContentView(R.layout.custom_alert_start);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.custom_alert_start);
 		
 		Button b=(Button) dialog.findViewById(R.id.button1);
 		b.setOnClickListener(new OnClickListener(){
@@ -49,14 +53,11 @@ public class MainActivity extends Activity {
 				EditText et=(EditText)dialog.findViewById(R.id.editText1);
 				gw.startGame(et.getText().toString());
 				dialog.dismiss();
+				hasStart=true;
 			}
 		});
 		
 		dialog.show();
-		
-		fl.addView(gw);
-		setContentView(fl);
-			
 	}
 	@Override
 	public void onPause(){
@@ -67,9 +68,8 @@ public class MainActivity extends Activity {
 	@Override
 	public void onResume(){
 		super.onResume();
-		if(gw!=null)
+		if(gw!=null && hasStart)
 			gw.startListner();
 		gw.resumeAllExecution();
-		
 	}
 }
