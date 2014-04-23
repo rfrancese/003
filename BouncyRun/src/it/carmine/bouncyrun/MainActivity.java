@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
 				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 				dialog.setContentView(R.layout.custom_alert_gameover);
 				TextView tv=(TextView)dialog.findViewById(R.id.textView1);
+				tv.setText(tv.getText().toString()+points);
 				Typeface tf = Typeface.createFromAsset(MainActivity.this.getAssets(),
 						"font/pipe.ttf");
 				tv.setTypeface(tf);
