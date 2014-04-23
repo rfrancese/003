@@ -1,8 +1,11 @@
 package it.carmine.bouncyrun;
 
+import it.carmine.bouncyrun.control.GameOverListner;
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
@@ -38,12 +42,26 @@ public class MainActivity extends Activity {
 		gw.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 
 				LayoutParams.MATCH_PARENT));
 		
+		gw.setOnGameOverListener(new GameOverListner(){
+			@Override
+			public void onGameOver(int points) {
+				final Dialog dialog = new Dialog(MainActivity.this,R.style.PauseDialog);
+				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				dialog.setContentView(R.layout.custom_alert_gameover);
+				TextView tv=(TextView)dialog.findViewById(R.id.textView1);
+				Typeface tf = Typeface.createFromAsset(MainActivity.this.getAssets(),
+						"font/pipe.ttf");
+				tv.setTypeface(tf);
+				
+				dialog.show();
+				}
+		});
+		
 		fl.addView(gw);
 		setContentView(fl);
 			
 
 		final Dialog dialog = new Dialog(this,R.style.PauseDialog);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.custom_alert_start);
 		
 		Button b=(Button) dialog.findViewById(R.id.button1);

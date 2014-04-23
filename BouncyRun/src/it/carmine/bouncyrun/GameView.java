@@ -1,5 +1,6 @@
 package it.carmine.bouncyrun;
 
+import it.carmine.bouncyrun.control.GameOverListner;
 import it.carmine.bouncyrun.model.GameOverText;
 import it.carmine.bouncyrun.model.items.Ball;
 import it.carmine.bouncyrun.model.items.Cloud;
@@ -12,25 +13,23 @@ import it.carmine.bouncyrun.threads.TerraceMove;
 import java.util.ArrayList;
 import java.util.Random;
 
+import android.app.Dialog;
 import android.content.Context;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-
-
 import android.util.Log;
-
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.widget.TextView;
 
 public class GameView extends View {
 	
@@ -40,6 +39,8 @@ public class GameView extends View {
 	private final int sleepStar=250;
 	
 	private boolean invertStar;
+	
+	private GameOverListner gol;
 	
 	private Context c;
 	private int x,y,radius;
@@ -84,6 +85,9 @@ public class GameView extends View {
 	
 	private boolean isStarted;
 	private String nick;
+	
+	private int points;
+	
 	public GameView(Context c,int width,int height){
 		super(c);
 		this.c=c;
@@ -270,17 +274,6 @@ public class GameView extends View {
 			//palla
 			c.drawBitmap(ball, b.getX(), b.getY(),p);	
 			//controllos e game over devo finire e stampare il punteggio
-			if(gameFinish){
-				p.setTextSize(40);
-				p.setColor(Color.WHITE);
-				Typeface tf = Typeface.createFromAsset(GameView.this.c.getAssets(),
-						"font/pipe.ttf");
-				p.setTypeface(tf);
-				GameOverText gowt=new GameOverText(width,height,(int) p.getTextSize());
-			
-				c.drawText("GAME OVER", gowt.getX(), gowt.getY(), p);
-				c.drawBitmap(broke_ball, b.getX(), b.getY(),p);
-			}
 		}
 	}
 	
@@ -290,6 +283,17 @@ public class GameView extends View {
 		stopListner();
 		stopAllExecution();
 		postInvalidateDelayed(1);
+		
+		
+		post(new Runnable(){
+			@Override
+			public void run() {
+				gol.onGameOver(points);
+			}
+		});
+	}
+	public void setOnGameOverListener(GameOverListner go){
+		gol=go;
 	}
 
 	
