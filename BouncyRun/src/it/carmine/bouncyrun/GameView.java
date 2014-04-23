@@ -2,11 +2,13 @@ package it.carmine.bouncyrun;
 
 import it.carmine.bouncyrun.control.GameOverListner;
 import it.carmine.bouncyrun.model.GameOverText;
+import it.carmine.bouncyrun.model.bonus.Incrementer;
 import it.carmine.bouncyrun.model.items.Ball;
 import it.carmine.bouncyrun.model.items.Cloud;
 import it.carmine.bouncyrun.model.items.Star;
 import it.carmine.bouncyrun.model.items.Terrace;
 import it.carmine.bouncyrun.threads.CloudMove;
+import it.carmine.bouncyrun.threads.PointChecker;
 import it.carmine.bouncyrun.threads.StarMove;
 import it.carmine.bouncyrun.threads.TerraceMove;
 
@@ -88,6 +90,9 @@ public class GameView extends View {
 	
 	private int points;
 	
+	private PointChecker pch;
+	private Incrementer incrementer;
+	
 	public GameView(Context c,int width,int height){
 		super(c);
 		this.c=c;
@@ -143,7 +148,7 @@ public class GameView extends View {
 		//avvio il movimento laterale della palla
 		bm=new BallMove();
 			
-		
+
 		startListner();
 		
 		//creo la stella
@@ -152,6 +157,10 @@ public class GameView extends View {
 		star=new Star(nx,my,width,height,star1.getWidth());
 		smv=new StarMove(star,sleepStar,GameView.this);
 		
+		
+		//avvio il cercatore di punti
+		incrementer=new Incrementer();
+		pch=new PointChecker(b,star,incrementer);
 	}
 
 	public void startGame(String nick){
@@ -159,7 +168,8 @@ public class GameView extends View {
 			bm.start();
 		if(!smv.isAlive())
 			smv.start();
-		
+		if(!pch.isAlive())
+			pch.start();
 		//creo nuvole e terrazzi
 		makeCloud();
 		makeTerraces();
@@ -283,12 +293,11 @@ public class GameView extends View {
 		stopListner();
 		stopAllExecution();
 		postInvalidateDelayed(1);
-		
-		
+
 		post(new Runnable(){
 			@Override
 			public void run() {
-				gol.onGameOver(points);
+				gol.onGameOver(incrementer.getP());
 			}
 		});
 	}
@@ -296,7 +305,6 @@ public class GameView extends View {
 		gol=go;
 	}
 
-	
 	class BallMove extends Thread{
 		@Override
 		public void run() {
@@ -315,7 +323,6 @@ public class GameView extends View {
 						b.moveXB();
 				}
 			}
-			//return null;
 		}
 	}
 	//riavvio il listner
@@ -350,10 +357,15 @@ public class GameView extends View {
 			trmA.get(i).interrupt();
 		bm.interrupt();
 		smv.interrupt();
+		pch.interrupt();
 	}
 	//ricomincio tutto
 	public void resumeAllExecution(){
 		if(!onexec){
+			//il cercapunti
+			pch=new PointChecker(b,star,incrementer);
+			pch.start();
+			
 			//ripristino l'esecuzione delle nuvole
 			ArrayList<CloudMove>cc=new ArrayList<CloudMove>();
 			ArrayList<TerraceMove>tt=new ArrayList<TerraceMove>();
