@@ -283,7 +283,9 @@ public class GameView extends View {
 			}
 			//palla
 			c.drawBitmap(ball, b.getX(), b.getY(),p);	
-			//controllos e game over devo finire e stampare il punteggio
+			p.setTypeface(Typeface.createFromAsset(this.c.getAssets(),
+					"font/pipe.ttf"));
+			c.drawText(incrementer.getP()+"", 20, 20, p);
 		}
 	}
 	
