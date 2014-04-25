@@ -152,8 +152,8 @@ public class GameView extends View {
 		startListner();
 		
 		//creo la stella
-		int my=(int)Math.random()*height;
-		int nx=(int)Math.random()*width;
+		//int my=(int)Math.random()*height;
+		//int nx=(int)Math.random()*width;
 		//star=new Star(nx,my,width,height,star1.getWidth());
 		//smv=new StarMove(star,sleepStar,GameView.this);
 		
