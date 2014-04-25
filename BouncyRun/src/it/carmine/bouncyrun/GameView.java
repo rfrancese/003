@@ -7,9 +7,8 @@ import it.carmine.bouncyrun.model.items.Ball;
 import it.carmine.bouncyrun.model.items.Cloud;
 import it.carmine.bouncyrun.model.items.Star;
 import it.carmine.bouncyrun.model.items.Terrace;
+
 import it.carmine.bouncyrun.threads.CloudMove;
-import it.carmine.bouncyrun.threads.PointChecker;
-import it.carmine.bouncyrun.threads.StarMove;
 import it.carmine.bouncyrun.threads.TerraceMove;
 
 import java.util.ArrayList;
@@ -83,14 +82,12 @@ public class GameView extends View {
 	
 	private final int dpDelta = 30;
 	
-	//private StarMove smv;
 	
 	private boolean isStarted;
 	private String nick;
 	
 	private int points;
 	
-	private PointChecker pch;
 	private Incrementer incrementer;
 	
 	private boolean mustAddPoint;
@@ -118,11 +115,7 @@ public class GameView extends View {
                 R.drawable.terrace);
 		obstacled_terrace= BitmapFactory.decodeResource(GameView.this.c.getResources(),
                 R.drawable.obstacled_terrace);
-		/*star1=BitmapFactory.decodeResource(GameView.this.c.getResources(),
-                R.drawable.star1);
-		star2=BitmapFactory.decodeResource(GameView.this.c.getResources(),
-                R.drawable.star2);*/
-		
+
 		
 		radius=ball.getHeight();
 		x=radius;
@@ -153,25 +146,13 @@ public class GameView extends View {
 
 		startListner();
 		
-		//creo la stella
-		//int my=(int)Math.random()*height;
-		//int nx=(int)Math.random()*width;
-		//star=new Star(nx,my,width,height,star1.getWidth());
-		//smv=new StarMove(star,sleepStar,GameView.this);
-		
-		
 		//avvio il cercatore di punti
 		incrementer=new Incrementer();
-		//pch=new PointChecker(b,star,incrementer);
 	}
 
 	public void startGame(String nick){
 		if(!bm.isAlive())
 			bm.start();
-		/*if(!smv.isAlive())
-			smv.start();*/
-	/*	if(!pch.isAlive())
-			pch.start();*/
 		//creo nuvole e terrazzi
 		makeCloud();
 		makeTerraces();
@@ -270,12 +251,7 @@ public class GameView extends View {
 			//stampo tutte le nuvole!
 			for(int i=0;i<cloudNum;i++)
 				c.drawBitmap(icon, clA.get(i).getX(),clA.get(i).getY(),p);
-			//stella bonus
-		/*	if(smv.getStarStatus()){
-				c.drawBitmap(star2,star.getX(),star.getY(),p);
-			}else{
-				c.drawBitmap(star1,star.getX(),star.getY(),p);
-			}*/
+
 			//ostacolo
 			for(int i=0;i<terraceNum;i++){
 				if(!trA.get(i).hasObstacle())
@@ -364,14 +340,12 @@ public class GameView extends View {
 			trmA.get(i).interrupt();
 		bm.interrupt();
 		//smv.interrupt();
-		pch.interrupt();
+		//pch.interrupt();
 	}
 	//ricomincio tutto
 	public void resumeAllExecution(){
 		if(!onexec){
 			//il cercapunti
-			/*pch=new PointChecker(b,star,incrementer);
-			pch.start();*/
 			
 			//ripristino l'esecuzione delle nuvole
 			ArrayList<CloudMove>cc=new ArrayList<CloudMove>();
@@ -391,8 +365,6 @@ public class GameView extends View {
 			bm=new BallMove();
 			bm.start();
 			
-			/*smv=new  StarMove(star,sleepStar,GameView.this);
-			smv.start();*/
 			onexec=true;
 		}
 	}
