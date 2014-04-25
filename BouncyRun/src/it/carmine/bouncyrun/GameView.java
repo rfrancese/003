@@ -93,6 +93,8 @@ public class GameView extends View {
 	private PointChecker pch;
 	private Incrementer incrementer;
 	
+	private boolean mustAddPoint;
+	
 	public GameView(Context c,int width,int height){
 		super(c);
 		this.c=c;
@@ -283,8 +285,11 @@ public class GameView extends View {
 			}
 			//palla
 			c.drawBitmap(ball, b.getX(), b.getY(),p);	
+			//punteggio
 			p.setTypeface(Typeface.createFromAsset(this.c.getAssets(),
 					"font/pipe.ttf"));
+			p.setTextSize(30);
+			p.setColor(Color.WHITE);
 			c.drawText(incrementer.getP()+"", 20, 20, p);
 		}
 	}
@@ -449,6 +454,9 @@ public class GameView extends View {
 		}
 		@Override
 		public void run() {
+			
+			mustAddPoint=true;
+			
 			int k=height-(ball.getHeight());
 			int jump=b.getY()-b.jump();
 			//vado su JUMPUP
@@ -466,7 +474,7 @@ public class GameView extends View {
 			}
 			boolean forceExit=true;
 			//vado giu, parto da i JUMPDOWN
-			for(int j=i;forceExit && !Thread.currentThread().isInterrupted() && j<=k;j++){
+			for(int j=i;forceExit && !Thread.currentThread().isInterrupted() && j<=(k+ball.getHeight());j++){
 				try{
 					isOnTerrace=false;
 					//aspetto e sposto
@@ -477,10 +485,15 @@ public class GameView extends View {
 					while(!Thread.currentThread().isInterrupted() && 
 							(onTerracenum=isOnTerrace(b))>=0 && b.getX()>0
 						){
-						isOnTerrace=true;
-						Thread.sleep(sleepTerrace);
-						b.setX(b.getX()-1);
-						postInvalidateDelayed(1);
+							isOnTerrace=true;
+							Thread.sleep(sleepTerrace);
+							b.setX(b.getX()-1);
+							postInvalidateDelayed(1);
+							//controllo se devo aggiungere il punto
+							if(mustAddPoint){
+								incrementer.incrementa();
+								mustAddPoint=false;
+							}
 					}//quando cado devo scendere
 					
 					if(isInterrupted()){
