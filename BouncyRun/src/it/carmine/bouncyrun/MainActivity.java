@@ -46,23 +46,23 @@ public class MainActivity extends Activity {
 		gw.setOnGameOverListener(new GameOverListner(){
 			@Override
 			public void onGameOver(int points) {
-				final Dialog dialog = new Dialog(MainActivity.this,R.style.PauseDialog);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				dialog.setContentView(R.layout.custom_alert_gameover);
-				TextView tv=(TextView)dialog.findViewById(R.id.textView1);
+				final Dialog dialog1 = new Dialog(MainActivity.this,R.style.PauseDialog);
+				dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				dialog1.setContentView(R.layout.custom_alert_gameover);
+				TextView tv=(TextView)dialog1.findViewById(R.id.textView1);
 				tv.setText(tv.getText().toString()+points);
 				Typeface tf = Typeface.createFromAsset(MainActivity.this.getAssets(),
 						"font/pipe.ttf");
 				tv.setTypeface(tf);
 				
 				
-				ImageView facebook_share=(ImageView) dialog.findViewById(R.id.facebook_share);
-				ImageView google_share=(ImageView)dialog.findViewById(R.id.google_share);
-				ImageView altro_share=(ImageView)dialog.findViewById(R.id.altro_share);
+				ImageView facebook_share=(ImageView) dialog1.findViewById(R.id.facebook_share);
+				ImageView google_share=(ImageView)dialog1.findViewById(R.id.google_share);
+				ImageView altro_share=(ImageView)dialog1.findViewById(R.id.altro_share);
 				
 				
 				
-				dialog.show();
+				dialog1.show();
 				}
 		});
 		
@@ -71,8 +71,8 @@ public class MainActivity extends Activity {
 			
 
 		final Dialog dialog = new Dialog(this,R.style.PauseDialog);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.custom_alert_start);
-		
 		Button b=(Button) dialog.findViewById(R.id.button1);
 		b.setOnClickListener(new OnClickListener(){
 			@Override
