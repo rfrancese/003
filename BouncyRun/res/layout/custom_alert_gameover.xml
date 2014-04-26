@@ -16,10 +16,11 @@
         android:typeface="normal" />
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1" >
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true" >
 
         <ImageView
             android:id="@+id/facebook_share"
@@ -38,7 +39,17 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/share_altro" />
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_alignRight="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="10dp"
+        android:text="Close"
+        android:textSize="15sp" />
 
 </RelativeLayout>

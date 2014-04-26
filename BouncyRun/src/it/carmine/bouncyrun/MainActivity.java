@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -53,6 +54,13 @@ public class MainActivity extends Activity {
 				Typeface tf = Typeface.createFromAsset(MainActivity.this.getAssets(),
 						"font/pipe.ttf");
 				tv.setTypeface(tf);
+				
+				
+				ImageView facebook_share=(ImageView) dialog.findViewById(R.id.facebook_share);
+				ImageView google_share=(ImageView)dialog.findViewById(R.id.google_share);
+				ImageView altro_share=(ImageView)dialog.findViewById(R.id.altro_share);
+				
+				
 				
 				dialog.show();
 				}
