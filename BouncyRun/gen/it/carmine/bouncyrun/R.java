@@ -32,15 +32,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int bgcolor=0x7f020001;
         public static final int broke_ball=0x7f020002;
         public static final int cloud_small=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int obstacled_terrace=0x7f020005;
-        public static final int star1=0x7f020006;
-        public static final int star2=0x7f020007;
-        public static final int terrace=0x7f020008;
+        public static final int facebook_share=0x7f020004;
+        public static final int google_share=0x7f020005;
+        public static final int ic_launcher=0x7f020006;
+        public static final int obstacled_terrace=0x7f020007;
+        public static final int share_altro=0x7f020008;
+        public static final int star1=0x7f020009;
+        public static final int star2=0x7f02000a;
+        public static final int terrace=0x7f02000b;
     }
     public static final class id {
-        public static final int button1=0x7f080003;
-        public static final int editText1=0x7f080002;
+        public static final int altro_share=0x7f080004;
+        public static final int button1=0x7f080006;
+        public static final int editText1=0x7f080005;
+        public static final int facebook_share=0x7f080002;
+        public static final int google_share=0x7f080003;
         public static final int root=0x7f080000;
         public static final int textView1=0x7f080001;
     }

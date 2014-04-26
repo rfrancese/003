@@ -15,4 +15,30 @@
         android:textSize="35sp"
         android:typeface="normal" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1" >
+
+        <ImageView
+            android:id="@+id/facebook_share"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/facebook_share" />
+
+        <ImageView
+            android:id="@+id/google_share"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/google_share" />
+
+        <ImageView
+            android:id="@+id/altro_share"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/share_altro" />
+
+    </LinearLayout>
+
 </RelativeLayout>

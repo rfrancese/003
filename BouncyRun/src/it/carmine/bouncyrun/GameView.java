@@ -446,7 +446,8 @@ public class GameView extends View {
 			}
 			boolean forceExit=true;
 			//vado giu, parto da i JUMPDOWN
-			for(int j=i;forceExit && !Thread.currentThread().isInterrupted() && j<=(k+ball.getHeight());j++){
+			for(int j=i;forceExit && !Thread.currentThread().isInterrupted() 
+					&& j<=(k+ball.getHeight());j++){
 				try{
 					isOnTerrace=false;
 					//aspetto e sposto
@@ -482,6 +483,10 @@ public class GameView extends View {
 				}
 			}
 			jumping=false;
+			
+			//se cado è finita
+			interrupt();
+			gameOver();
 		}
 	}
 }
