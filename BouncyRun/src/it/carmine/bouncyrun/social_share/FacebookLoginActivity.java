@@ -34,10 +34,6 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
             //read about Facebook Permissions here:
             //http://developers.facebook.com/docs/reference/api/permissions/
             String permissions[] = {
-            				/*"email",
-                            "read_friendlists",
-                            "manage_friendlists",
-                            "offline_access",*/
                             "publish_stream",
                             "publish_actions",
             };
@@ -81,9 +77,16 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
     	@Override
     	protected Object doInBackground(Object... arg0) {
     		try{
-
-    			graphApi.setStatus("BouncyRunTest"+getIntent().getStringExtra("points")); 	
-	
+    			graphApi.setStatus(
+    					getIntent().getStringExtra("nick")+
+							" ha totalizzato un punteggio di "+
+								getIntent().getStringExtra("points")+" salti", 
+						"http://image-gj.9game.com/2013/5/2/9024810.jpg",
+						"http://enimrac92.altervista.org/", 
+						"Il mio punteggio su BouncyRun", 
+						"http://enimrac92.altervista.org/",
+                        "Il mio punteggio su BouncyRun"
+                   );
     		} catch(EasyFacebookError e){
     			Log.d("TAG: ", e.toString());
     		}

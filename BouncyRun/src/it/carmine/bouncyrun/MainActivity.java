@@ -4,8 +4,11 @@ import it.carmine.bouncyrun.control.GameOverListner;
 import it.carmine.bouncyrun.social_share.FacebookLoginActivity;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -19,6 +22,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
@@ -68,11 +72,20 @@ public class MainActivity extends Activity {
 				facebook_share.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View v) {
-						Intent i=new Intent(MainActivity.this,FacebookLoginActivity.class);
-						i.putExtra("points", gw.getPoint().getP()+"");
-						startActivity(i);
-						dialog1.cancel();
-						MainActivity.this.finish();
+						if(isOnline()){
+							Intent i=new Intent(MainActivity.this,FacebookLoginActivity.class);
+							i.putExtra("points", gw.getPoint().getP()+"");
+							i.putExtra("nick", "carmine");
+							
+							startActivity(i);
+							
+							dialog1.cancel();
+							MainActivity.this.finish();
+						}else{
+							Toast toast=Toast.makeText(MainActivity.this,
+									"Problema connessione internet",Toast.LENGTH_LONG);
+							toast.show();
+						}
 					}
 				});
 				}
@@ -110,5 +123,16 @@ public class MainActivity extends Activity {
 		if(gw!=null && hasStart)
 			gw.startListner();
 		gw.resumeAllExecution();
+	}
+	
+	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
 	}
 }
