@@ -27,6 +27,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int bgcolor=0x7f050001;
         public static final int black_overlay=0x7f050000;
     }
+    public static final class dimen {
+        /**  Default screen margins, per the Android Design guidelines. 
+
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+         */
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
+    }
     public static final class drawable {
         public static final int ball=0x7f020000;
         public static final int bgcolor=0x7f020001;
@@ -42,24 +53,31 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int terrace=0x7f02000b;
     }
     public static final class id {
-        public static final int altro_share=0x7f080005;
-        public static final int button1=0x7f080006;
-        public static final int editText1=0x7f080007;
-        public static final int facebook_share=0x7f080003;
-        public static final int google_share=0x7f080004;
-        public static final int linearLayout1=0x7f080002;
-        public static final int root=0x7f080000;
-        public static final int textView1=0x7f080001;
+        public static final int altro_share=0x7f090006;
+        public static final int button1=0x7f090007;
+        public static final int container=0x7f090000;
+        public static final int editText1=0x7f090008;
+        public static final int facebook_share=0x7f090004;
+        public static final int google_share=0x7f090005;
+        public static final int linearLayout1=0x7f090003;
+        public static final int root=0x7f090001;
+        public static final int textView1=0x7f090002;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int custom_alert_gameover=0x7f030001;
-        public static final int custom_alert_start=0x7f030002;
+        public static final int activity_classifica=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int custom_alert_gameover=0x7f030002;
+        public static final int custom_alert_start=0x7f030003;
+        public static final int fb_login=0x7f030004;
+        public static final int fragment_classifica=0x7f030005;
     }
     public static final class string {
-        public static final int app_name=0x7f060000;
-        public static final int dummy_button=0x7f060001;
-        public static final int dummy_content=0x7f060002;
+        public static final int action_settings=0x7f070005;
+        public static final int app_name=0x7f070000;
+        public static final int dummy_button=0x7f070001;
+        public static final int dummy_content=0x7f070002;
+        public static final int hello_world=0x7f070004;
+        public static final int title_activity_classifica=0x7f070003;
     }
     public static final class style {
         /** 
@@ -83,14 +101,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
-        public static final int AppTheme=0x7f070004;
-        public static final int ButtonBar=0x7f070002;
-        public static final int ButtonBarButton=0x7f070003;
-        public static final int FullscreenActionBarStyle=0x7f070007;
-        public static final int FullscreenTheme=0x7f070001;
-        public static final int PauseDialog=0x7f070005;
-        public static final int PauseDialogAnimation=0x7f070006;
+        public static final int AppBaseTheme=0x7f080000;
+        public static final int AppTheme=0x7f080004;
+        public static final int ButtonBar=0x7f080002;
+        public static final int ButtonBarButton=0x7f080003;
+        public static final int FullscreenActionBarStyle=0x7f080007;
+        public static final int FullscreenTheme=0x7f080001;
+        public static final int PauseDialog=0x7f080005;
+        public static final int PauseDialogAnimation=0x7f080006;
     }
     public static final class styleable {
         /** 

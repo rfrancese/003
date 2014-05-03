@@ -1,8 +1,10 @@
 package it.carmine.bouncyrun;
 
 import it.carmine.bouncyrun.control.GameOverListner;
+import it.carmine.bouncyrun.social_share.FacebookLoginActivity;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,7 +36,7 @@ public class MainActivity extends Activity {
 		int height=metrics.heightPixels;
 		int width=metrics.widthPixels;
 		
-		Log.i("size","w="+width+"h="+height);
+		//Log.i("size","w="+width+"h="+height);
 		
 		FrameLayout fl=new FrameLayout(this);
 		fl.setBackgroundColor(getResources().getColor(R.color.bgcolor));
@@ -58,11 +60,21 @@ public class MainActivity extends Activity {
 				
 				ImageView facebook_share=(ImageView) dialog1.findViewById(R.id.facebook_share);
 				ImageView google_share=(ImageView)dialog1.findViewById(R.id.google_share);
-				ImageView altro_share=(ImageView)dialog1.findViewById(R.id.altro_share);
-				
-				
-				
+				ImageView altro_classifica=(ImageView)dialog1.findViewById(R.id.altro_share);
+								
 				dialog1.show();
+				
+				
+				facebook_share.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) {
+						Intent i=new Intent(MainActivity.this,FacebookLoginActivity.class);
+						i.putExtra("points", gw.getPoint().getP()+"");
+						startActivity(i);
+						dialog1.cancel();
+						MainActivity.this.finish();
+					}
+				});
 				}
 		});
 		

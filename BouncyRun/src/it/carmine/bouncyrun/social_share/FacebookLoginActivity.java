@@ -20,7 +20,7 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
     private FBLoginManager fbLoginManager;
 
     //replace it with your own Facebook App ID
-    public final String KODEFUNFBAPP_ID = "CODICE_FACEBOOK_QUI";
+    public final String KODEFUNFBAPP_ID = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,16 +34,16 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
             //read about Facebook Permissions here:
             //http://developers.facebook.com/docs/reference/api/permissions/
             String permissions[] = {
-            				"email",
+            				/*"email",
                             "read_friendlists",
                             "manage_friendlists",
-                            "offline_access",
+                            "offline_access",*/
                             "publish_stream",
                             "publish_actions",
             };
 
            fbLoginManager = new FBLoginManager(this,
-                            R.layout.activity_main, 
+                            R.layout.fb_login, 
                             KODEFUNFBAPP_ID, 
                             permissions);
 
@@ -64,12 +64,9 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
     }
     
     private GraphApi graphApi;
-    private User user;
     
     public void loginSuccess(Facebook facebook) {
-            graphApi = new GraphApi(facebook);
-
-             user = new User();
+         graphApi = new GraphApi(facebook);
 
          SetStatus ss=new SetStatus();
          ss.execute();
@@ -79,25 +76,14 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
     class SetStatus extends AsyncTask{
     	@Override
     	public void onPostExecute(Object a){
-    		Log.i("riuscito",user.getFirst_name() +"-"+user.getLast_name()+"-"+user.getEmail());
-    		/*
-    		 * 
-    		 * 
-    		 * qui quando finsico
-    		 * 
-    		 * 
-    		 */
+    		Log.i("riuscito","ok");
     	}
     	@Override
     	protected Object doInBackground(Object... arg0) {
     		try{
-    			/*
-    			 * 
-    			 * qui col setstatus condivido
-    			 * 
-    			 * 
-    			 */
-    			user = graphApi.getMyAccountInfo();    			
+
+    			graphApi.setStatus("BouncyRunTest"+getIntent().getStringExtra("points")); 	
+	
     		} catch(EasyFacebookError e){
     			Log.d("TAG: ", e.toString());
     		}

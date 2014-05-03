@@ -169,6 +169,9 @@ public class GameView extends View {
 		p=((p*width)/480)+terrace.getWidth()+previous;
 		return p;
 	}
+	public Incrementer getPoint(){
+		return incrementer;
+	}
 	private void makeCloud(){
 		//creo e lancio tutte le nuvole
 		for(int i=0;i<cloudNum;i++){
