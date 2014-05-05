@@ -40,7 +40,6 @@ public class MainActivity extends Activity {
 		int height=metrics.heightPixels;
 		int width=metrics.widthPixels;
 		
-		//Log.i("size","w="+width+"h="+height);
 		
 		FrameLayout fl=new FrameLayout(this);
 		fl.setBackgroundColor(getResources().getColor(R.color.bgcolor));
@@ -63,7 +62,7 @@ public class MainActivity extends Activity {
 				
 				
 				ImageView facebook_share=(ImageView) dialog1.findViewById(R.id.facebook_share);
-				ImageView google_share=(ImageView)dialog1.findViewById(R.id.google_share);
+				ImageView altro_share=(ImageView)dialog1.findViewById(R.id.google_share);
 				ImageView altro_classifica=(ImageView)dialog1.findViewById(R.id.altro_share);
 								
 				dialog1.show();
@@ -88,7 +87,29 @@ public class MainActivity extends Activity {
 						}
 					}
 				});
-				}
+				
+				altro_share.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) {
+						Intent sendIntent = new Intent();
+						sendIntent.setAction(Intent.ACTION_SEND);
+						sendIntent.putExtra(
+								Intent.EXTRA_TEXT, "Ho raggiungo un punteggio di "+
+										gw.getPoint().getP()+" su BouncyRun, scaricalo anche tu!"+
+											" url"
+										);
+						sendIntent.setType("text/plain");
+						startActivity(sendIntent);
+					}
+				});
+				
+				altro_classifica.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) {
+						startActivity(new Intent(MainActivity.this,ClassificaActivity.class));
+					}
+				});
+			}
 		});
 		
 		fl.addView(gw);

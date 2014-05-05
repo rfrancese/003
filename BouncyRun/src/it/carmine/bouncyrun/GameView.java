@@ -35,7 +35,7 @@ import android.widget.TextView;
 public class GameView extends View {
 	
 	private final int sleepCloud=200;
-	private final int sleepTerrace=15;
+	private final int sleepTerrace=6;
 	private final int sleepBall=5;
 	private final int sleepStar=250;
 	
