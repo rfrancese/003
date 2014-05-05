@@ -32,10 +32,11 @@ public class TerraceMove extends Thread{
 	public Terrace getTerrace(){
 		return terra;
 	}
-	
-	
-	 public void interrupt() {
-		 super.interrupt();		  
-		 muststop=false;
-	 } 
+	public void interrupt() {
+		super.interrupt();		  
+		muststop=false;
+	}
+	public int getSleep(){
+		return sleepTerrace;
+	}
 }

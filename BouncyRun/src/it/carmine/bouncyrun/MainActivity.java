@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,27 +56,46 @@ public class MainActivity extends Activity {
 				final Dialog dialog1 = new Dialog(MainActivity.this,R.style.PauseDialog);
 				dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
 				dialog1.setContentView(R.layout.custom_alert_gameover);
+				dialog1.setCancelable(false);
 				TextView tv=(TextView)dialog1.findViewById(R.id.textView1);
 				tv.setText(tv.getText().toString()+points);
 				Typeface tf = Typeface.createFromAsset(MainActivity.this.getAssets(),
 						"font/pipe.ttf");
 				tv.setTypeface(tf);
+				tv.setTextColor(Color.BLACK);
 				
 				
 				ImageView facebook_share=(ImageView) dialog1.findViewById(R.id.facebook_share);
 				ImageView altro_share=(ImageView)dialog1.findViewById(R.id.google_share);
 				ImageView altro_classifica=(ImageView)dialog1.findViewById(R.id.altro_share);
-								
+				
+				Button close=(Button)dialog1.findViewById(R.id.button1);
+				Button regame=(Button)dialog1.findViewById(R.id.button2);
+				
 				dialog1.show();
-				
-				
+
+				close.setOnClickListener(new OnClickListener(){
+
+					@Override
+					public void onClick(View v) {
+						finish();						
+					}
+					
+				});
+				regame.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) {
+						finish();
+						startActivity(new Intent(MainActivity.this,MainActivity.class));
+					}
+				});
 				facebook_share.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View v) {
 						if(isOnline()){
 							Intent i=new Intent(MainActivity.this,FacebookLoginActivity.class);
 							i.putExtra("points", gw.getPoint().getP()+"");
-							i.putExtra("nick", "carmine");
+							i.putExtra("nick", gw.getNick());
 							
 							startActivity(i);
 							
@@ -120,16 +141,30 @@ public class MainActivity extends Activity {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.custom_alert_start);
 		Button b=(Button) dialog.findViewById(R.id.button1);
+		final RadioGroup rg=(RadioGroup)dialog.findViewById(R.id.radioGroup1);
+		
 		b.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				EditText et=(EditText)dialog.findViewById(R.id.editText1);
-				gw.startGame(et.getText().toString());
+				switch(rg.getCheckedRadioButtonId()){
+				case R.id.radio0:
+					gw.setDifficultEasy();
+				break;
+				case R.id.radio1:
+					gw.setDifficultNormal();
+				break;
+				case R.id.radio2:
+					gw.setDifficultHard();
+				break;
+				}
+				
+				gw.startGame();
 				dialog.dismiss();
 				hasStart=true;
 			}
 		});
-		
+		dialog.setCancelable(false);
 		dialog.show();
 	}
 	@Override

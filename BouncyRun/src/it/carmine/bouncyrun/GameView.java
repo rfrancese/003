@@ -35,7 +35,7 @@ import android.widget.TextView;
 public class GameView extends View {
 	
 	private final int sleepCloud=200;
-	private final int sleepTerrace=6;
+	private int sleepTerrace;
 	private final int sleepBall=5;
 	private final int sleepStar=250;
 	
@@ -150,13 +150,12 @@ public class GameView extends View {
 		incrementer=new Incrementer();
 	}
 
-	public void startGame(String nick){
+	public void startGame(){
 		if(!bm.isAlive())
 			bm.start();
 		//creo nuvole e terrazzi
 		makeCloud();
 		makeTerraces();
-		this.nick=nick;
 		
 		//setto le flags
 		onexec=true;
@@ -164,7 +163,21 @@ public class GameView extends View {
 		//inizio il gioco
 		isStarted=true;
 	}
-	
+	public String getNick(){
+		return nick;
+	}
+	public void setDifficultEasy(){
+		sleepTerrace=15;
+	}
+	public void setDifficultNormal(){
+		sleepTerrace=10;
+	}
+	public void setDifficultHard(){
+		sleepTerrace=5;
+	}
+	public void setNick(String n){
+		nick=n;
+	}
 	private int proporzione(int p,int previous){
 		p=((p*width)/480)+terrace.getWidth()+previous;
 		return p;
@@ -462,7 +475,7 @@ public class GameView extends View {
 							(onTerracenum=isOnTerrace(b))>=0 && b.getX()>0
 						){
 							isOnTerrace=true;
-							Thread.sleep(sleepTerrace);
+							Thread.sleep(trmA.get(0).getSleep());
 							b.setX(b.getX()-1);
 							postInvalidateDelayed(1);
 							//controllo se devo aggiungere il punto
