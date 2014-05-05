@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 				dialog1.setContentView(R.layout.custom_alert_gameover);
 				dialog1.setCancelable(false);
 				TextView tv=(TextView)dialog1.findViewById(R.id.textView1);
-				tv.setText(tv.getText().toString()+points);
+				//tv.setText(tv.getText().toString()+points);
 				Typeface tf = Typeface.createFromAsset(MainActivity.this.getAssets(),
 						"font/pipe.ttf");
 				tv.setTypeface(tf);
@@ -141,8 +141,17 @@ public class MainActivity extends Activity {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.custom_alert_start);
 		Button b=(Button) dialog.findViewById(R.id.button1);
+		Button tutorial=(Button)dialog.findViewById(R.id.button2);
+		
 		final RadioGroup rg=(RadioGroup)dialog.findViewById(R.id.radioGroup1);
 		
+		tutorial.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(MainActivity.this,TutorialActivity.class));
+			}
+		});
+				
 		b.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {

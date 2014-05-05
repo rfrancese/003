@@ -9,8 +9,9 @@
         android:name="android.hardware.sensor.accelerometer"
         android:required="true" />
     <!-- permessi internet -->
-	 <uses-permission android:name="android.permission.INTERNET"/>
-	 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
@@ -41,11 +42,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.carmine.bouncyrun.MainActivity" />
         </activity>
-        
         <activity
             android:name="it.carmine.bouncyrun.social_share.FacebookLoginActivity"
             android:label="@string/title_activity_classifica"
             android:parentActivityName="it.carmine.bouncyrun.MainActivity" >
+        </activity>
+        <activity
+            android:name="it.carmine.bouncyrun.TutorialActivity"
+            android:label="@string/title_activity_tutorial"
+            android:parentActivityName="it.carmine.bouncyrun.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.carmine.bouncyrun.MainActivity" />
         </activity>
     </application>
 
