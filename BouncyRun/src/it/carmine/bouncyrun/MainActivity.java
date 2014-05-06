@@ -130,7 +130,7 @@ public class MainActivity extends Activity {
 						Intent i=new Intent(MainActivity.this,ClassificaActivity.class);
 						i.putExtra("nick",  gw.getNick());
 						i.putExtra("difficolta", gw.getDifficolta());
-						i.putExtra("punteggio", gw.getPoint()+"");
+						i.putExtra("punteggio", gw.getPoint().getP()+"");
 						startActivity(i);
 					}
 				});
@@ -159,9 +159,8 @@ public class MainActivity extends Activity {
 		b.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				EditText et=(EditText)dialog.findViewById(R.id.editText1);
-				
-				if(et.getText().toString()!=null){
+				EditText et=(EditText)dialog.findViewById(R.id.editText1);				
+				if(!et.getText().toString().matches("")){
 					switch(rg.getCheckedRadioButtonId()){
 					case R.id.radio0:
 						gw.setDifficultEasy();
@@ -173,14 +172,17 @@ public class MainActivity extends Activity {
 						gw.setDifficultHard();
 						break;
 					}
+					
+					gw.setNick(et.getText().toString());
+					gw.startGame();
+					dialog.dismiss();
+					hasStart=true;
+					
 				}else{
 					Toast toast=Toast.makeText(MainActivity.this,
 							"Devi fornire un nickname!",Toast.LENGTH_LONG);
 					toast.show();
 				}
-				gw.startGame();
-				dialog.dismiss();
-				hasStart=true;
 			}
 		});
 		dialog.setCancelable(false);

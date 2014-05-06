@@ -40,7 +40,7 @@ public class GameView extends View {
 	private String difficolta;
 	
 	private boolean invertStar;
-	
+	private boolean isNotGameOver=true;
 	private GameOverListner gol;
 	
 	private Context c;
@@ -291,6 +291,8 @@ public class GameView extends View {
 	
 	//se è game over
 	private void gameOver(){
+		isNotGameOver=false;
+		
 		gameFinish=true;
 		stopListner();
 		stopAllExecution();
@@ -363,7 +365,7 @@ public class GameView extends View {
 	}
 	//ricomincio tutto
 	public void resumeAllExecution(){
-		if(!onexec){
+		if(!onexec && isNotGameOver){
 			//il cercapunti
 			
 			//ripristino l'esecuzione delle nuvole

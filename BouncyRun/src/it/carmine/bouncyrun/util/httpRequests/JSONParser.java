@@ -1,4 +1,4 @@
-package it.carmine.bouncyrun.social_share;
+package it.carmine.bouncyrun.util.httpRequests;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,28 +24,8 @@ public class JSONParser {
     static JSONObject jObj = null;
     static String json = "";
 	
-	//params è un namevaluepair ossia nome/valore da spedire
-	 public JSONObject getJSONFromUrl(String url, List<NameValuePair> params) {
-		 
-	        // Making HTTP request
-	        try {
-	            // defaultHttpClient
-	            DefaultHttpClient httpClient = new DefaultHttpClient();
-	            HttpPost httpPost = new HttpPost(url);
-	            httpPost.setEntity(new UrlEncodedFormEntity(params));
-	 
-	            HttpResponse httpResponse = httpClient.execute(httpPost);
-	            HttpEntity httpEntity = httpResponse.getEntity();
-	            is = httpEntity.getContent();
-	 
-	        } catch (UnsupportedEncodingException e) {
-	            e.printStackTrace();
-	        } catch (ClientProtocolException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	 
+	//prendo l'input stream che ho ricevuto
+	 public JSONObject getJSON(InputStream is) {
 	        try {
 	            BufferedReader reader = new BufferedReader(new InputStreamReader(
 	                    is, "iso-8859-1"), 8);
@@ -61,15 +41,14 @@ public class JSONParser {
 	            Log.e("Buffer Error", "Error converting result " + e.toString());
 	        }
 	 
-	        // try parse the string to a JSON object
+	        // creo l'oggetto json
 	        try {
 	            jObj = new JSONObject(json);            
 	        } catch (JSONException e) {
 	            Log.e("JSON Parser", "Error parsing data " + e.toString());
 	        }
 	 
-	        // return JSON String to elaborate
+	        // oggetto json
 	        return jObj;
-	 
 	    }
 }

@@ -2,8 +2,10 @@ package it.carmine.bouncyrun.social_share;
 
 
 
+import it.carmine.bouncyrun.ClassificaActivity;
 import it.carmine.bouncyrun.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +22,7 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
     private FBLoginManager fbLoginManager;
 
     //replace it with your own Facebook App ID
-    public final String KODEFUNFBAPP_ID = "";
+    public final String KODEFUNFBAPP_ID = "294476200715169";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,12 +72,16 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
 
     
     class SetStatus extends AsyncTask{
+    	ProgressDialog progress;
     	@Override
     	public void onPostExecute(Object a){
-    		Log.i("riuscito","ok");
+    		progress.dismiss();
     	}
     	@Override
     	protected Object doInBackground(Object... arg0) {
+    		progress = ProgressDialog.show(FacebookLoginActivity.this, "Invio",
+				    "Invio al server dei dati", true);
+			progress.setCancelable(false);
     		try{
     			graphApi.setStatus(
     					getIntent().getStringExtra("nick")+

@@ -12,6 +12,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.util.Log;
+
 public class SendInfo {
 
 	private String nick,punteggio,difficolta;
@@ -19,7 +21,7 @@ public class SendInfo {
 		nick=n;
 		punteggio=p;
 		difficolta=d;
-		postData();
+		postData(); 	
 	}
 	
 	public void postData() {
@@ -31,14 +33,20 @@ public class SendInfo {
 	        // Add your data
 	        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 	        nameValuePairs.add(new BasicNameValuePair("key", "V29445420Kg1715165A"));
+	        nameValuePairs.add(new BasicNameValuePair("post","invio"));
 	        nameValuePairs.add(new BasicNameValuePair("nick", nick));
-	        nameValuePairs.add(new BasicNameValuePair("punteggio", nick));
-	        nameValuePairs.add(new BasicNameValuePair("difficolta", nick));
+	        nameValuePairs.add(new BasicNameValuePair("punteggio", punteggio));
+	        nameValuePairs.add(new BasicNameValuePair("difficolta", difficolta));
+	        //modificare
+	        nameValuePairs.add(new BasicNameValuePair("nazione","italia"));
 	        
 	        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 	        // Execute HTTP Post Request
 	        HttpResponse response = httpclient.execute(httppost);
+	        
+	        Log.i("response",response.getEntity().getContent().toString());
+	        Log.i("spediti",nick+punteggio+difficolta);
 	        
 	    } catch (ClientProtocolException e) {
 	        // TODO Auto-generated catch block
