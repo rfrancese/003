@@ -127,7 +127,11 @@ public class MainActivity extends Activity {
 				altro_classifica.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View v) {
-						startActivity(new Intent(MainActivity.this,ClassificaActivity.class));
+						Intent i=new Intent(MainActivity.this,ClassificaActivity.class);
+						i.putExtra("nick",  gw.getNick());
+						i.putExtra("difficolta", gw.getDifficolta());
+						i.putExtra("punteggio", gw.getPoint()+"");
+						startActivity(i);
 					}
 				});
 			}
@@ -156,18 +160,24 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				EditText et=(EditText)dialog.findViewById(R.id.editText1);
-				switch(rg.getCheckedRadioButtonId()){
-				case R.id.radio0:
-					gw.setDifficultEasy();
-				break;
-				case R.id.radio1:
-					gw.setDifficultNormal();
-				break;
-				case R.id.radio2:
-					gw.setDifficultHard();
-				break;
-				}
 				
+				if(et.getText().toString()!=null){
+					switch(rg.getCheckedRadioButtonId()){
+					case R.id.radio0:
+						gw.setDifficultEasy();
+						break;
+					case R.id.radio1:
+						gw.setDifficultNormal();
+						break;
+					case R.id.radio2:
+						gw.setDifficultHard();
+						break;
+					}
+				}else{
+					Toast toast=Toast.makeText(MainActivity.this,
+							"Devi fornire un nickname!",Toast.LENGTH_LONG);
+					toast.show();
+				}
 				gw.startGame();
 				dialog.dismiss();
 				hasStart=true;

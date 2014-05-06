@@ -7,7 +7,6 @@ import it.carmine.bouncyrun.model.items.Ball;
 import it.carmine.bouncyrun.model.items.Cloud;
 import it.carmine.bouncyrun.model.items.Star;
 import it.carmine.bouncyrun.model.items.Terrace;
-
 import it.carmine.bouncyrun.threads.CloudMove;
 import it.carmine.bouncyrun.threads.TerraceMove;
 
@@ -38,6 +37,7 @@ public class GameView extends View {
 	private int sleepTerrace;
 	private final int sleepBall=5;
 	private final int sleepStar=250;
+	private String difficolta;
 	
 	private boolean invertStar;
 	
@@ -168,12 +168,15 @@ public class GameView extends View {
 	}
 	public void setDifficultEasy(){
 		sleepTerrace=15;
+		difficolta="Easy";
 	}
 	public void setDifficultNormal(){
 		sleepTerrace=10;
+		difficolta="Normal";
 	}
 	public void setDifficultHard(){
 		sleepTerrace=5;
+		difficolta="Hard";
 	}
 	public void setNick(String n){
 		nick=n;
@@ -504,5 +507,8 @@ public class GameView extends View {
 			interrupt();
 			gameOver();
 		}
+	}
+	public String getDifficolta() {
+		return difficolta;
 	}
 }
