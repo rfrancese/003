@@ -59,6 +59,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class id {
         public static final int altro_share=0x7f090012;
+        public static final int btn_startgame=0x7f09001a;
+        public static final int btn_tutorial=0x7f090019;
         public static final int button1=0x7f090001;
         public static final int button2=0x7f090013;
         public static final int container=0x7f090000;

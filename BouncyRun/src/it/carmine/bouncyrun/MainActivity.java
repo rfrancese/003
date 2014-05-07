@@ -29,16 +29,25 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	private boolean hasStart;
+	private boolean hasStart,mustclose;
 	GameView gw;
+	private Dialog dialog;
+	private RadioGroup rg;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		
+		//nel caso in cui la app sia già stata inizializzata
+		//e che l'utente abbia già inserito il nick in precedenza
+		havePreviousNick();
+		
+		//quest'altro è nel caso in cui non ci fosse il precedente nickname
+		//noHavePreviousNick();
+	}
+	
+	private void havePreviousNick(){
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
 		int height=metrics.heightPixels;
 		int width=metrics.widthPixels;
 		
@@ -75,10 +84,10 @@ public class MainActivity extends Activity {
 				dialog1.show();
 
 				close.setOnClickListener(new OnClickListener(){
-
 					@Override
 					public void onClick(View v) {
-						finish();						
+						mustclose=true;
+						finish();					
 					}
 					
 				});
@@ -140,25 +149,65 @@ public class MainActivity extends Activity {
 		fl.addView(gw);
 		setContentView(fl);
 			
-
-		final Dialog dialog = new Dialog(this,R.style.PauseDialog);
+		dialog = new Dialog(this,R.style.PauseDialog);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.custom_alert_start);
-		Button b=(Button) dialog.findViewById(R.id.button1);
-		Button tutorial=(Button)dialog.findViewById(R.id.button2);
+		Button b=(Button) dialog.findViewById(R.id.btn_startgame);
+		Button tutorial=(Button)dialog.findViewById(R.id.btn_tutorial);
 		
-		final RadioGroup rg=(RadioGroup)dialog.findViewById(R.id.radioGroup1);
+		rg=(RadioGroup)dialog.findViewById(R.id.radioGroup1);
 		
-		tutorial.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(MainActivity.this,TutorialActivity.class));
-			}
-		});
+		tutorial.setOnClickListener(new OnClick_());
 				
-		b.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
+		b.setOnClickListener(new OnClick_());
+		
+		dialog.setCancelable(false);
+		dialog.show();
+	}
+	
+	//questo qui invece salva il nickname
+	private void saveNickname(){
+		
+	}
+	private void noHavePreviousNick(){
+		
+	}
+	@Override
+	public void onPause(){
+		super.onPause();
+		gw.stopListner();
+		gw.stopAllExecution();
+	}
+	@Override
+	public void onResume(){
+		super.onResume();
+		if(gw!=null && hasStart)
+			gw.startListner();
+		gw.resumeAllExecution();
+	}
+	@Override
+	public void onDestroy(){
+		super.onDestroy(); 
+		if(mustclose)
+			System.exit(0);
+	}
+	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
+	
+	class OnClick_ implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			switch(v.getId()){
+			case R.id.btn_startgame:
 				EditText et=(EditText)dialog.findViewById(R.id.editText1);				
 				if(!et.getText().toString().matches("")){
 					switch(rg.getCheckedRadioButtonId()){
@@ -183,33 +232,12 @@ public class MainActivity extends Activity {
 							"Devi fornire un nickname!",Toast.LENGTH_LONG);
 					toast.show();
 				}
+			break;
+			case R.id.btn_tutorial:
+				startActivity(new Intent(MainActivity.this,TutorialActivity.class));
+			break;
 			}
-		});
-		dialog.setCancelable(false);
-		dialog.show();
-	}
-	@Override
-	public void onPause(){
-		super.onPause();
-		gw.stopListner();
-		gw.stopAllExecution();
-	}
-	@Override
-	public void onResume(){
-		super.onResume();
-		if(gw!=null && hasStart)
-			gw.startListner();
-		gw.resumeAllExecution();
-	}
-	
-	
-	public boolean isOnline() {
-	    ConnectivityManager cm =
-	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
-	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-	        return true;
-	    }
-	    return false;
+			
+		}
 	}
 }

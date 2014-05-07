@@ -35,11 +35,9 @@ public class GameView extends View {
 	
 	private final int sleepCloud=200;
 	private int sleepTerrace;
-	private final int sleepBall=5;
-	private final int sleepStar=250;
+	private final int sleepBall=3;
 	private String difficolta;
-	
-	private boolean invertStar;
+
 	private boolean isNotGameOver=true;
 	private GameOverListner gol;
 	
@@ -57,7 +55,7 @@ public class GameView extends View {
 	private Cloud cloud;
 	private Terrace terra;
 	//private Star star;
-	private Bitmap icon,ball,terrace,obstacled_terrace,/*star1,star2,*/broke_ball;
+	private Bitmap icon,ball,terrace,obstacled_terrace,broke_ball;
 	private boolean jumping=false;
 	private ArrayList<Cloud>clA;
 	private ArrayList<CloudMove>clmA;
@@ -142,8 +140,7 @@ public class GameView extends View {
 
 		//avvio il movimento laterale della palla
 		bm=new BallMove();
-			
-
+		
 		startListner();
 		
 		//avvio il cercatore di punti
@@ -167,7 +164,7 @@ public class GameView extends View {
 		return nick;
 	}
 	public void setDifficultEasy(){
-		sleepTerrace=15;
+		sleepTerrace=13;
 		difficolta="Easy";
 	}
 	public void setDifficultNormal(){
@@ -360,14 +357,10 @@ public class GameView extends View {
 		for(int i=0;i<trmA.size();i++)
 			trmA.get(i).interrupt();
 		bm.interrupt();
-		//smv.interrupt();
-		//pch.interrupt();
 	}
 	//ricomincio tutto
 	public void resumeAllExecution(){
 		if(!onexec && isNotGameOver){
-			//il cercapunti
-			
 			//ripristino l'esecuzione delle nuvole
 			ArrayList<CloudMove>cc=new ArrayList<CloudMove>();
 			ArrayList<TerraceMove>tt=new ArrayList<TerraceMove>();
@@ -447,7 +440,6 @@ public class GameView extends View {
 		}
 		@Override
 		public void run() {
-			
 			mustAddPoint=true;
 			
 			int k=height-(ball.getHeight());
