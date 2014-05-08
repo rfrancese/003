@@ -3,6 +3,8 @@ package it.carmine.bouncyrun;
 import it.carmine.bouncyrun.control.GameOverListner;
 import it.carmine.bouncyrun.social_share.FacebookLoginActivity;
 import it.carmine.bouncyrun.user.GameSettings;
+import it.carmine.bouncyrun.user.UserSettings;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -15,8 +17,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.Button;
@@ -151,8 +155,9 @@ public class MainActivity extends Activity {
 		});
 		
 		fl.addView(gw);
+		fl.addView(addCloseButton());
 		setContentView(fl);
-			
+		
 		dialog = new Dialog(this,R.style.PauseDialog);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.custom_alert_start);
@@ -178,6 +183,33 @@ public class MainActivity extends Activity {
 	}
 	private String checkNick(){
 		return null;
+	}
+	
+	@SuppressLint("NewApi")
+	private Button addCloseButton(){
+		Button b=new Button(this);
+		
+		int sdk = android.os.Build.VERSION.SDK_INT;
+		if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+			b.setBackgroundDrawable(getResources().getDrawable(R.drawable.close_btn));
+		} else {
+			b.setBackground(getResources().getDrawable(R.drawable.close_btn));
+		}
+		
+		FrameLayout.LayoutParams ll=new FrameLayout.LayoutParams(50,50);
+		ll.gravity=Gravity.TOP|Gravity.RIGHT;
+		b.setLayoutParams(ll);
+		
+		b.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				//qui devi confermare se non è stato un errore e nel caso
+				//non lo sia stato chiudere il gioco
+				//ma nel frattempo devi fermare tutto e ricominciare nel caso
+				//sia stato premuto per errore
+			}
+		});
+		return b;
 	}
 	@Override
 	public void onPause(){
@@ -229,6 +261,7 @@ public class MainActivity extends Activity {
 						break;
 					}
 					
+					gs.setUserSettings(new UserSettings());
 					gs.getUserSettings().setNick(et.getText().toString());
 					gw.setGameSettings(gs);
 					

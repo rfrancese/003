@@ -280,9 +280,9 @@ public class GameView extends View {
 			//punteggio
 			p.setTypeface(Typeface.createFromAsset(this.c.getAssets(),
 					"font/pipe.ttf"));
-			p.setTextSize(30);
+			p.setTextSize(40);
 			p.setColor(Color.WHITE);
-			c.drawText(incrementer.getP()+"", 20, 20, p);
+			c.drawText(incrementer.getP()+"", 40, 45, p);
 		}
 	}
 	
@@ -384,7 +384,6 @@ public class GameView extends View {
 	}
 	
 	//controllo che la palla sia sul terrazzo
-	
 	private int isOnTerrace(Ball b) throws GameOverException{
 		for(int i=0;i<terraceNum;i++)
 			//getWidth/2 per determinare il centro
