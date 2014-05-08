@@ -9,6 +9,7 @@ import it.carmine.bouncyrun.model.items.Star;
 import it.carmine.bouncyrun.model.items.Terrace;
 import it.carmine.bouncyrun.threads.CloudMove;
 import it.carmine.bouncyrun.threads.TerraceMove;
+import it.carmine.bouncyrun.user.GameSettings;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -36,7 +37,6 @@ public class GameView extends View {
 	private final int sleepCloud=200;
 	private int sleepTerrace;
 	private final int sleepBall=3;
-	private String difficolta;
 
 	private boolean isNotGameOver=true;
 	private GameOverListner gol;
@@ -82,13 +82,19 @@ public class GameView extends View {
 	
 	
 	private boolean isStarted;
-	private String nick;
 	
 	private int points;
 	
 	private Incrementer incrementer;
 	
 	private boolean mustAddPoint;
+	
+	private GameSettings gs;
+	
+	public GameView(Context c,int width,int height,GameSettings gs){
+		super(c);
+		this.gs=gs;
+	}
 	
 	public GameView(Context c,int width,int height){
 		super(c);
@@ -161,22 +167,16 @@ public class GameView extends View {
 		isStarted=true;
 	}
 	public String getNick(){
-		return nick;
+		return gs.getUserSettings().getNick();
 	}
-	public void setDifficultEasy(){
-		sleepTerrace=13;
-		difficolta="Easy";
+	public void setGameSettings(GameSettings gs){
+		this.gs=gs;
 	}
-	public void setDifficultNormal(){
-		sleepTerrace=10;
-		difficolta="Normal";
-	}
-	public void setDifficultHard(){
-		sleepTerrace=5;
-		difficolta="Hard";
-	}
-	public void setNick(String n){
-		nick=n;
+	public void setDifficultByGS(String diff) throws Exception{
+		if(gs.getSleepDifficult(diff)>0)
+			sleepTerrace=gs.getSleepDifficult(diff);
+		else
+			throw new Exception("Errore, difficoltà non trovata");
 	}
 	private int proporzione(int p,int previous){
 		p=((p*width)/480)+terrace.getWidth()+previous;
@@ -503,6 +503,6 @@ public class GameView extends View {
 		}
 	}
 	public String getDifficolta() {
-		return difficolta;
+		return gs.getDifficult();
 	}
 }

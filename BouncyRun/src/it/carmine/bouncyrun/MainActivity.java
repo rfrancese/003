@@ -2,6 +2,7 @@ package it.carmine.bouncyrun;
 
 import it.carmine.bouncyrun.control.GameOverListner;
 import it.carmine.bouncyrun.social_share.FacebookLoginActivity;
+import it.carmine.bouncyrun.user.GameSettings;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -33,10 +34,13 @@ public class MainActivity extends Activity {
 	GameView gw;
 	private Dialog dialog;
 	private RadioGroup rg;
+	private GameSettings gs;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		gs=new GameSettings();
 		
+		//String nick=checkNick();
 		//nel caso in cui la app sia già stata inizializzata
 		//e che l'utente abbia già inserito il nick in precedenza
 		havePreviousNick();
@@ -172,6 +176,9 @@ public class MainActivity extends Activity {
 	private void noHavePreviousNick(){
 		
 	}
+	private String checkNick(){
+		return null;
+	}
 	@Override
 	public void onPause(){
 		super.onPause();
@@ -212,17 +219,19 @@ public class MainActivity extends Activity {
 				if(!et.getText().toString().matches("")){
 					switch(rg.getCheckedRadioButtonId()){
 					case R.id.radio0:
-						gw.setDifficultEasy();
+						gs.setDifficult(gs.DIFFICULT_EASY);
 						break;
 					case R.id.radio1:
-						gw.setDifficultNormal();
+						gs.setDifficult(gs.DIFFICULT_NORMAL);
 						break;
 					case R.id.radio2:
-						gw.setDifficultHard();
+						gs.setDifficult(gs.DIFFICULT_HARD);
 						break;
 					}
 					
-					gw.setNick(et.getText().toString());
+					gs.getUserSettings().setNick(et.getText().toString());
+					gw.setGameSettings(gs);
+					
 					gw.startGame();
 					dialog.dismiss();
 					hasStart=true;
