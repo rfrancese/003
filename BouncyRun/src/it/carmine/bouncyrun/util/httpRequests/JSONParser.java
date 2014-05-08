@@ -14,6 +14,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,11 +22,11 @@ import android.util.Log;
 
 public class JSONParser {
     static InputStream is = null;
-    static JSONObject jObj = null;
+    static JSONArray jObj = null;
     static String json = "";
 	
 	//prendo l'input stream che ho ricevuto
-	 public JSONObject getJSON(InputStream is) {
+	 public JSONArray getJSON(InputStream is) {
 	        try {
 	            BufferedReader reader = new BufferedReader(new InputStreamReader(
 	                    is, "iso-8859-1"), 8);
@@ -43,7 +44,7 @@ public class JSONParser {
 	 
 	        // creo l'oggetto json
 	        try {
-	            jObj = new JSONObject(json);            
+	            jObj = new JSONArray(json);            
 	        } catch (JSONException e) {
 	            Log.e("JSON Parser", "Error parsing data " + e.toString());
 	        }

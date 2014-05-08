@@ -2,6 +2,7 @@ package it.carmine.bouncyrun.util.httpRequests;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.*;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -20,48 +22,34 @@ import android.util.Log;
 
 public class ReceiveInfo {
 
-	public ArrayList<PosizioneClassifica>receiveData() {
-	    // Create a new HttpClient and Post Header
-	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpPost httppost = new HttpPost("http://enimrac92.altervista.org/bdSir/api.php");
-
-	    try {
-	        // Add your data
-	        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-	        nameValuePairs.add(new BasicNameValuePair("key", "V29445420Kg1715165A"));
-	       	        
-	        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-	        // Execute HTTP Post Request
-	        HttpResponse response = httpclient.execute(httppost);
-	        
-	        JSONParser jsp=new JSONParser();
-	        JSONObject jo=jsp.getJSON(response.getEntity().getContent());
-	        JSONArray ja=new JSONArray(jo.toString());
-	        ArrayList<PosizioneClassifica>pa=new ArrayList<PosizioneClassifica>();
-	        
-	        for(int i=0;i<ja.length();i++){
-	        	jo=ja.getJSONObject(i);
-	        	pa.add(new PosizioneClassifica(
-	        									jo.getString("nick_utente"),
-	        									jo.getString("difficolta"),
-	        									jo.getString("punteggio")
-	        									)
-	        		  );
-	        	Log.i("json result", jo.getString("nick_utente"));
-	 
-	        }
-	        return pa;
-	    } catch (ClientProtocolException e) {
-	        // TODO Auto-generated catch block
-	    	e.printStackTrace();
-	    } catch (IOException e) {
-	        // TODO Auto-generated catch block
-	    	e.printStackTrace();
-	    } catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public ArrayList<PosizioneClassifica>receiveData() throws ClientProtocolException, IOException {
+	    ArrayList<PosizioneClassifica>apc=new ArrayList<PosizioneClassifica>();
+	    
+		String url="http://enimrac92.altervista.org/bdSir/api.php?key=V29445420Kg1715165A";
+		
+		DefaultHttpClient client = new DefaultHttpClient();  
+		HttpGet httpGet = new HttpGet(url); 
+		HttpResponse execute = client.execute(httpGet);  
+		InputStream content = execute.getEntity().getContent(); 
+		JSONParser js=new JSONParser();
+		JSONArray jo=js.getJSON(content);
+		//Log.i("json=",jo.toString());
+		
+		for(int i=0;i<jo.length();i++){
+			try {
+				JSONObject j=jo.getJSONObject(i);
+				PosizioneClassifica pc=
+						new PosizioneClassifica(j.getString("nick_utente"),
+												j.getString("punteggio"),
+												j.getString("difficolta")
+												);
+				apc.add(pc);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
-		return null;
+		return apc;
 	} 
 }
