@@ -6,8 +6,10 @@ import it.carmine.bouncyrun.user.GameSettings;
 import it.carmine.bouncyrun.user.UserSettings;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -185,13 +187,15 @@ public class MainActivity extends Activity {
 		return null;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	private Button addCloseButton(){
 		Button b=new Button(this);
 		
 		int sdk = android.os.Build.VERSION.SDK_INT;
 		if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-			b.setBackgroundDrawable(getResources().getDrawable(R.drawable.close_btn));
+			b.setBackgroundDrawable(getResources().
+					getDrawable(R.drawable.close_btn));
 		} else {
 			b.setBackground(getResources().getDrawable(R.drawable.close_btn));
 		}
@@ -207,9 +211,40 @@ public class MainActivity extends Activity {
 				//non lo sia stato chiudere il gioco
 				//ma nel frattempo devi fermare tutto e ricominciare nel caso
 				//sia stato premuto per errore
+				showCloseDialog();
 			}
 		});
 		return b;
+	}
+	
+	private void showCloseDialog(){
+		
+		//fermo tutto
+		gw.stopListner();
+		gw.stopAllExecution();
+		
+		
+		new AlertDialog.Builder(this)
+        .setIcon(android.R.drawable.ic_dialog_alert)
+        .setTitle("Conferma uscita")
+        .setMessage("Sicuro di voler uscire?")
+        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Stop the activity
+                MainActivity.this.finish();    
+            }
+        })
+        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            	//se è no riprendo
+            	gw.startListner();
+        		gw.resumeAllExecution();    
+            }
+        })
+        .show();
+
 	}
 	@Override
 	public void onPause(){

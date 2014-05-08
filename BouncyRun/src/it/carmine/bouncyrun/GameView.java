@@ -169,14 +169,21 @@ public class GameView extends View {
 	public String getNick(){
 		return gs.getUserSettings().getNick();
 	}
-	public void setGameSettings(GameSettings gs){
-		this.gs=gs;
-	}
+	
 	public void setDifficultByGS(String diff) throws Exception{
 		if(gs.getSleepDifficult(diff)>0)
 			sleepTerrace=gs.getSleepDifficult(diff);
 		else
 			throw new Exception("Errore, difficoltà non trovata");
+	}
+	public void setGameSettings(GameSettings gs){
+		this.gs=gs;
+		try {
+			setDifficultByGS(gs.getDifficult());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	private int proporzione(int p,int previous){
 		p=((p*width)/480)+terrace.getWidth()+previous;
