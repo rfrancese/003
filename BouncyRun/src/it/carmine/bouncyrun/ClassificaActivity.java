@@ -1,9 +1,12 @@
 package it.carmine.bouncyrun;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
 
+import it.carmine.bouncyrun.adapters_list.AdapterClassifica;
+import it.carmine.bouncyrun.util.httpRequests.PosizioneClassifica;
 import it.carmine.bouncyrun.util.httpRequests.ReceiveInfo;
 import it.carmine.bouncyrun.util.httpRequests.SendInfo;
 import android.app.Activity;
@@ -50,15 +53,16 @@ public class ClassificaActivity extends Activity {
 	}
 	
 	class Receive extends AsyncTask{
+		ArrayList<PosizioneClassifica>p;
 		@Override
 		public void onPostExecute(Object o){
-			//qui si setta la roba per la list view
+			lv.setAdapter(new AdapterClassifica(ClassificaActivity.this,p));
 		}
 		@Override
 		protected Object doInBackground(Object... params) {
 			ReceiveInfo ri=new ReceiveInfo();
 			try {
-				ri.receiveData();
+				p=ri.receiveData();
 			} catch (ClientProtocolException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
