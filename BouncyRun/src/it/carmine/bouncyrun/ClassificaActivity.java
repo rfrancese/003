@@ -11,7 +11,10 @@ import it.carmine.bouncyrun.util.httpRequests.ReceiveInfo;
 import it.carmine.bouncyrun.util.httpRequests.SendInfo;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -36,19 +39,23 @@ public class ClassificaActivity extends Activity {
 		share.setOnClickListener(new OnClick());
 		lv=(ListView)findViewById(R.id.listView1);
 		
-		Receive r=new Receive();
-		r.execute();
+		if(isOnline()){
+			Receive r=new Receive();
+			r.execute();
+		}
 	}
 	
 	
 	class OnClick implements OnClickListener{
 		@Override
 		public void onClick(View v) {
-			Send s=new Send();
-			s.execute();
-			progress = ProgressDialog.show(ClassificaActivity.this, "Invio",
-				    "Invio dei dati al server...", true);
-			progress.setCancelable(false);
+			if(isOnline()){
+				Send s=new Send();
+				s.execute();
+				progress = ProgressDialog.show(ClassificaActivity.this, "Invio",
+						"Invio dei dati al server...", true);
+				progress.setCancelable(false);
+			}
 		}
 	}
 	
@@ -86,5 +93,16 @@ public class ClassificaActivity extends Activity {
 									);
 			return null;
 		}
+	}
+	
+	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
 	}
 }
