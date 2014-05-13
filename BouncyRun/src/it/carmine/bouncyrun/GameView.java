@@ -152,16 +152,16 @@ public class GameView extends View {
 		//avvio il cercatore di punti
 		incrementer=new Incrementer();
 		
-		
-
+		makeCloud();
+		makeTerraces();
 	}
 
 	public void startGame(){
 		if(!bm.isAlive())
 			bm.start();
-		//creo nuvole e terrazzi
-		makeCloud();
-		makeTerraces();
+		//faccio partire nuvole e terrazzi
+		startCloud();
+		startTerraceMove();
 		
 		//setto le flags
 		onexec=true;
@@ -222,9 +222,15 @@ public class GameView extends View {
 			clm=new CloudMove(cloud,sleepCloud,this); 	
 			clmA.add(clm);
 				
-			clm.start();	
+			//clm.start();	
 			clA.add(cloud);
 		}//fine ciclo for cloud
+	}
+	private void startCloud(){
+		for(int i=0;i<clmA.size();i++){
+			if(!clmA.get(i).isAlive())
+				clmA.get(i).start();
+		}
 	}
 	private void makeTerraces(){
 		
@@ -267,9 +273,15 @@ public class GameView extends View {
 				
 				trm=new TerraceMove(terra,sleepTerrace,this); 	
 				trA.add(terra);
-				trm.start();	
+				//trm.start();	
 				trmA.add(trm);
 		}//fine ciclo for terrazzamenti
+	}
+	
+	private void startTerraceMove(){
+		for(int i=0;i<trmA.size();i++){
+			trmA.get(i).start();
+		}
 	}
 	//disegna e ridisegna
 	@Override
@@ -297,6 +309,20 @@ public class GameView extends View {
 			p.setColor(Color.WHITE);
 			c.drawText(incrementer.getP()+"", 40, 45, p);
 		}else{
+			
+			
+			//stampo tutte le nuvole!
+			for(int i=0;i<cloudNum;i++)
+				c.drawBitmap(icon, clA.get(i).getX(),clA.get(i).getY(),p);
+
+			//ostacolo
+			for(int i=0;i<terraceNum;i++){
+				if(!trA.get(i).hasObstacle())
+					c.drawBitmap(terrace, trA.get(i).getX(),trA.get(i).getY(),p);
+				else
+					c.drawBitmap(obstacled_terrace, trA.get(i).getX(),trA.get(i).getY(),p);
+			}	
+			
 			//messaggio per avvisare su come iniziare il gioco
 			p.setTypeface(Typeface.createFromAsset(this.c.getAssets(),
 					"font/pipe.ttf"));
@@ -308,6 +334,129 @@ public class GameView extends View {
 			//palla
 			c.drawBitmap(ball, b.getX(), b.getY(),p);
 		}
+	}
+
+	
+	//questo controlla il touch
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		super.onTouchEvent(event);	
+		if(!isStarted){
+			startGame();
+		}
+		return false;
+	}
+
+	//l'animazione per il salto, devo confrontare la discesa con la pos del terrace!
+	class BallJump extends Thread{
+		public void onPostExecute(Object o){
+			//finisco di saltare
+			jumping=false;
+		}
+		@Override
+		public void run() {			
+			while(isNotGameOver){
+				
+				mustAddPoint=true;
+				
+				int k=height-(ball.getHeight());
+				int jump=b.getY()-b.jump();
+				//vado su JUMPUP
+				int i;
+				for(i=b.getY();i>=jump;i--){
+					try{
+						//aspetto e sposto
+						Thread.sleep(sleepBall);
+						b.setY(i);
+						//invalida per ridisegnare
+						postInvalidateDelayed(1);
+					}catch (InterruptedException e) {
+						//e.printStackTrace();
+					}
+				}
+				boolean forceExit=true;
+				//vado giu, parto da i JUMPDOWN
+				for(int j=i;forceExit && !Thread.currentThread().isInterrupted() 
+						&& j<=(k+ball.getHeight()) && forceExit;j++){
+					try{
+						isOnTerrace=false;
+						//aspetto e sposto
+						Thread.sleep(sleepBall);
+						b.setY(j);
+						
+						//qui controllo se vado su un terrazzino
+						if(!Thread.currentThread().isInterrupted() && 
+								(onTerracenum=isOnTerrace(b))>=0 && b.getX()>0
+							){
+								isOnTerrace=true;
+								Thread.sleep(trmA.get(0).getSleep());
+								b.setX(b.getX()-1);
+								postInvalidateDelayed(1);
+								//controllo se devo aggiungere il punto
+								if(mustAddPoint){
+									incrementer.incrementa();
+									mustAddPoint=false;
+								}
+								forceExit=false;
+						}		
+						//invalida per ridisegnare
+						postInvalidateDelayed(1);
+					}catch (InterruptedException e) {
+						jumping=false;
+						return;
+					} catch (GameOverException e) {
+						interrupt();
+						gameOver();
+					}
+				}
+			//	jumping=false;
+				
+				//se cado è finita
+				if((b.getY()+ball.getHeight())>height){
+					interrupt();
+					gameOver();
+				}
+			}
+		}
+	}
+	//ricomincio tutto
+		public void resumeAllExecution(){
+			if(isStarted && !onexec && isNotGameOver){
+				//ripristino l'esecuzione delle nuvole
+				ArrayList<CloudMove>cc=new ArrayList<CloudMove>();
+				ArrayList<TerraceMove>tt=new ArrayList<TerraceMove>();
+				for(int i=0;i<clmA.size();i++){
+					cc.add(new CloudMove(clmA.get(i).getCloud(),sleepCloud,GameView.this));
+					cc.get(i).start();	
+				}
+				clmA=cc;
+				//riavvio i terrazzini
+				for(int i=0;i<trmA.size();i++){
+					tt.add(new TerraceMove(trmA.get(i).getTerrace(),sleepTerrace,GameView.this));
+					tt.get(i).start();	
+				}
+				trmA=tt;
+				//ripristino l'esecuzione del movimento della pallina
+				bm=new BallMove();
+				bm.start();
+				
+				onexec=true;
+			}
+		}
+	
+	//controllo che la palla sia sul terrazzo
+	private int isOnTerrace(Ball b) throws GameOverException{
+		for(int i=0;i<terraceNum;i++)
+			//getWidth/2 per determinare il centro
+			if(b.getX()+(ball.getWidth()/2) > trA.get(i).getX()){//la palla è oltre il bordo sx
+				if(b.getX() < trA.get(i).getX()+terrace.getWidth()){//la palla non è oltre il bordo dx
+					if((b.getY()+(ball.getHeight()/2)) == (trA.get(i).getY()-terrace.getHeight())){//palla sopra la barra - perché è a scendere!
+						if(trA.get(i).hasObstacle()) throw new GameOverException();
+						else return i;
+					}
+				}
+			}
+		return -1;
 	}
 	
 	//se è game over
@@ -381,132 +530,6 @@ public class GameView extends View {
 		for(int i=0;i<trmA.size();i++)
 			trmA.get(i).interrupt();
 		bm.interrupt();
-	}
-	//ricomincio tutto
-	public void resumeAllExecution(){
-		if(!onexec && isNotGameOver){
-			//ripristino l'esecuzione delle nuvole
-			ArrayList<CloudMove>cc=new ArrayList<CloudMove>();
-			ArrayList<TerraceMove>tt=new ArrayList<TerraceMove>();
-			for(int i=0;i<clmA.size();i++){
-				cc.add(new CloudMove(clmA.get(i).getCloud(),sleepCloud,GameView.this));
-				cc.get(i).start();	
-			}
-			clmA=cc;
-			//riavvio i terrazzini
-			for(int i=0;i<trmA.size();i++){
-				tt.add(new TerraceMove(trmA.get(i).getTerrace(),sleepTerrace,GameView.this));
-				tt.get(i).start();	
-			}
-			trmA=tt;
-			//ripristino l'esecuzione del movimento della pallina
-			bm=new BallMove();
-			bm.start();
-			
-			onexec=true;
-		}
-	}
-	
-	//controllo che la palla sia sul terrazzo
-	private int isOnTerrace(Ball b) throws GameOverException{
-		for(int i=0;i<terraceNum;i++)
-			//getWidth/2 per determinare il centro
-			if(b.getX()+(ball.getWidth()/2) > trA.get(i).getX()){//la palla è oltre il bordo sx
-				if(b.getX() < trA.get(i).getX()+terrace.getWidth()){//la palla non è oltre il bordo dx
-					if((b.getY()+(ball.getHeight()/2)) == (trA.get(i).getY()-terrace.getHeight())){//palla sopra la barra - perché è a scendere!
-						if(trA.get(i).hasObstacle()) throw new GameOverException();
-						else return i;
-					}
-				}
-			}
-		return -1;
-	}
-	
-	//questo controlla il touch
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		super.onTouchEvent(event);	
-		if(!isStarted){
-			startGame();
-		}
-		return false;
-	}
-
-	//l'animazione per il salto, devo confrontare la discesa con la pos del terrace!
-	class BallJump extends Thread{
-		public void onPostExecute(Object o){
-			//finisco di saltare
-			jumping=false;
-		}
-		@Override
-		public void run() {			
-			while(isNotGameOver){
-				
-				mustAddPoint=true;
-				
-				int k=height-(ball.getHeight());
-				int jump=b.getY()-b.jump();
-				//vado su JUMPUP
-				int i;
-				for(i=b.getY();i>=jump;i--){
-					try{
-						//aspetto e sposto
-						Thread.sleep(sleepBall);
-						b.setY(i);
-						//invalida per ridisegnare
-						postInvalidateDelayed(1);
-					}catch (InterruptedException e) {
-						//e.printStackTrace();
-					}
-				}
-				boolean forceExit=true;
-				//vado giu, parto da i JUMPDOWN
-				for(int j=i;forceExit && !Thread.currentThread().isInterrupted() 
-						&& j<=(k+ball.getHeight()) && forceExit;j++){
-					try{
-						isOnTerrace=false;
-						//aspetto e sposto
-						Thread.sleep(sleepBall);
-						b.setY(j);
-						
-						//qui controllo se vado su un terrazzino
-						if(!Thread.currentThread().isInterrupted() && 
-								(onTerracenum=isOnTerrace(b))>=0 && b.getX()>0
-							){
-								isOnTerrace=true;
-								Thread.sleep(trmA.get(0).getSleep());
-								b.setX(b.getX()-1);
-								postInvalidateDelayed(1);
-								//controllo se devo aggiungere il punto
-								if(mustAddPoint){
-									incrementer.incrementa();
-									mustAddPoint=false;
-								}
-								forceExit=false;
-						}//quando cado devo scendere
-						
-						/*if(isInterrupted()){
-							continue;
-						}*/						
-						//invalida per ridisegnare
-						postInvalidateDelayed(1);
-					}catch (InterruptedException e) {
-						jumping=false;
-						return;
-					} catch (GameOverException e) {
-						interrupt();
-						gameOver();
-					}
-				}
-			//	jumping=false;
-				
-				//se cado è finita
-				if((b.getY()+ball.getHeight())>height){
-					interrupt();
-					gameOver();
-				}
-			}
-		}
 	}
 	public String getDifficolta() {
 		return gs.getDifficult();
