@@ -151,6 +151,9 @@ public class GameView extends View {
 		
 		//avvio il cercatore di punti
 		incrementer=new Incrementer();
+		
+		
+
 	}
 
 	public void startGame(){
@@ -165,6 +168,9 @@ public class GameView extends View {
 		jumping=false;
 		//inizio il gioco
 		isStarted=true;
+		
+		BallJump bj=new BallJump();
+		bj.start();
 	}
 	public String getNick(){
 		return gs.getUserSettings().getNick();
@@ -409,31 +415,8 @@ public class GameView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		super.onTouchEvent(event);	
-		if(!gameFinish){
-			if(!jumping){
-				if(a!=null){
-					if(a.isAlive()) a.interrupt();
-				}
-				a=new BallJump();
-				a.start();
-				jumping=true;
-				return false;
-			}
-			//se sono su un terrazzino devo fermare e risaltare
-			//se il terrazzino è spinato allora è game over
-			try {
-				if(isOnTerrace(b)>=0){
-					if(a!=null && a.isAlive()){
-						a.interrupt();
-					}
-					a=new BallJump();
-					a.start();
-					jumping=true;
-					return false;
-				}
-			} catch (GameOverException e) {
-				gameOver();
-			}
+		if(!isStarted){
+			startGame();
 		}
 		return false;
 	}
@@ -445,67 +428,73 @@ public class GameView extends View {
 			jumping=false;
 		}
 		@Override
-		public void run() {
-			mustAddPoint=true;
-			
-			int k=height-(ball.getHeight());
-			int jump=b.getY()-b.jump();
-			//vado su JUMPUP
-			int i;
-			for(i=b.getY();i>=jump;i--){
-				try{
-					//aspetto e sposto
-					Thread.sleep(sleepBall);
-					b.setY(i);
-					//invalida per ridisegnare
-					postInvalidateDelayed(1);
-				}catch (InterruptedException e) {
-					//e.printStackTrace();
-				}
-			}
-			boolean forceExit=true;
-			//vado giu, parto da i JUMPDOWN
-			for(int j=i;forceExit && !Thread.currentThread().isInterrupted() 
-					&& j<=(k+ball.getHeight());j++){
-				try{
-					isOnTerrace=false;
-					//aspetto e sposto
-					Thread.sleep(sleepBall);
-					b.setY(j);
-					
-					//qui controllo se vado su un terrazzino
-					while(!Thread.currentThread().isInterrupted() && 
-							(onTerracenum=isOnTerrace(b))>=0 && b.getX()>0
-						){
-							isOnTerrace=true;
-							Thread.sleep(trmA.get(0).getSleep());
-							b.setX(b.getX()-1);
-							postInvalidateDelayed(1);
-							//controllo se devo aggiungere il punto
-							if(mustAddPoint){
-								incrementer.incrementa();
-								mustAddPoint=false;
-							}
-					}//quando cado devo scendere
-					
-					if(isInterrupted()){
-						continue;
+		public void run() {			
+			while(isNotGameOver){
+				
+				mustAddPoint=true;
+				
+				int k=height-(ball.getHeight());
+				int jump=b.getY()-b.jump();
+				//vado su JUMPUP
+				int i;
+				for(i=b.getY();i>=jump;i--){
+					try{
+						//aspetto e sposto
+						Thread.sleep(sleepBall);
+						b.setY(i);
+						//invalida per ridisegnare
+						postInvalidateDelayed(1);
+					}catch (InterruptedException e) {
+						//e.printStackTrace();
 					}
-					//invalida per ridisegnare
-					postInvalidateDelayed(1);
-				}catch (InterruptedException e) {
-					jumping=false;
-					return;
-				} catch (GameOverException e) {
+				}
+				boolean forceExit=true;
+				//vado giu, parto da i JUMPDOWN
+				for(int j=i;forceExit && !Thread.currentThread().isInterrupted() 
+						&& j<=(k+ball.getHeight()) && forceExit;j++){
+					try{
+						isOnTerrace=false;
+						//aspetto e sposto
+						Thread.sleep(sleepBall);
+						b.setY(j);
+						
+						//qui controllo se vado su un terrazzino
+						if(!Thread.currentThread().isInterrupted() && 
+								(onTerracenum=isOnTerrace(b))>=0 && b.getX()>0
+							){
+								isOnTerrace=true;
+								Thread.sleep(trmA.get(0).getSleep());
+								b.setX(b.getX()-1);
+								postInvalidateDelayed(1);
+								//controllo se devo aggiungere il punto
+								if(mustAddPoint){
+									incrementer.incrementa();
+									mustAddPoint=false;
+								}
+								forceExit=false;
+						}//quando cado devo scendere
+						
+						/*if(isInterrupted()){
+							continue;
+						}*/						
+						//invalida per ridisegnare
+						postInvalidateDelayed(1);
+					}catch (InterruptedException e) {
+						jumping=false;
+						return;
+					} catch (GameOverException e) {
+						interrupt();
+						gameOver();
+					}
+				}
+			//	jumping=false;
+				
+				//se cado è finita
+				if((b.getY()+ball.getHeight())>height){
 					interrupt();
 					gameOver();
 				}
 			}
-			jumping=false;
-			
-			//se cado è finita
-			interrupt();
-			gameOver();
 		}
 	}
 	public String getDifficolta() {
