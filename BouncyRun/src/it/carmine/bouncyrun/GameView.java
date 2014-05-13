@@ -35,7 +35,7 @@ import android.widget.TextView;
 public class GameView extends View {
 	
 	private final int sleepCloud=200;
-	private int sleepTerrace;
+	private int sleepTerrace=10;
 	private final int sleepBall=3;
 
 	private boolean isNotGameOver=true;
@@ -177,10 +177,16 @@ public class GameView extends View {
 	}
 	
 	public void setDifficultByGS(String diff) throws Exception{
-		if(gs.getSleepDifficult(diff)>0)
+		if(gs.getSleepDifficult(diff)>0){
 			sleepTerrace=gs.getSleepDifficult(diff);
-		else
+			setSleepTerraceMove(gs.getSleepDifficult(diff));
+		}else{
 			throw new Exception("Errore, difficoltà non trovata");
+		}
+	}
+	private void setSleepTerraceMove(int sleep){
+		for(int i=0;i<trmA.size();i++)
+			trmA.get(i).setSleep(sleep);
 	}
 	public void setGameSettings(GameSettings gs){
 		this.gs=gs;

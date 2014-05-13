@@ -16,6 +16,9 @@ public class TerraceMove extends Thread{
 		this.v=v;
 		muststop=true;
 	}
+	public void setSleep(int sleep){
+		sleepTerrace=sleep;
+	}
 	@Override
 	public void run() {
 		while(!this.isInterrupted() && muststop){
