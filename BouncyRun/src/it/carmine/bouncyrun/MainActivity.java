@@ -300,7 +300,7 @@ public class MainActivity extends Activity {
 					gs.getUserSettings().setNick(et.getText().toString());
 					gw.setGameSettings(gs);
 					
-					gw.startGame();
+					//gw.startGame();
 					dialog.dismiss();
 					hasStart=true;
 					

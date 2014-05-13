@@ -296,6 +296,17 @@ public class GameView extends View {
 			p.setTextSize(40);
 			p.setColor(Color.WHITE);
 			c.drawText(incrementer.getP()+"", 40, 45, p);
+		}else{
+			//messaggio per avvisare su come iniziare il gioco
+			p.setTypeface(Typeface.createFromAsset(this.c.getAssets(),
+					"font/pipe.ttf"));
+			p.setTextSize(30);
+			p.setColor(Color.WHITE);
+			c.drawText("Tocca lo schermo per iniziare", 40, 45, p);
+			
+			
+			//palla
+			c.drawBitmap(ball, b.getX(), b.getY(),p);
 		}
 	}
 	
