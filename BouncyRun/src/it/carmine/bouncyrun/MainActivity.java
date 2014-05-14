@@ -2,6 +2,7 @@ package it.carmine.bouncyrun;
 
 import it.carmine.bouncyrun.control.GameOverListner;
 import it.carmine.bouncyrun.social_share.FacebookLoginActivity;
+import it.carmine.bouncyrun.sql.SqlStorage;
 import it.carmine.bouncyrun.user.GameSettings;
 import it.carmine.bouncyrun.user.UserSettings;
 import android.annotation.SuppressLint;
@@ -11,6 +12,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
@@ -41,21 +43,24 @@ public class MainActivity extends Activity {
 	private Dialog dialog;
 	private RadioGroup rg;
 	private GameSettings gs;
+	private SqlStorage sql;
+	private String nick;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		sql=new SqlStorage(this);
+		
 		gs=new GameSettings();
 		
-		//String nick=checkNick();
-		//nel caso in cui la app sia già stata inizializzata
-		//e che l'utente abbia già inserito il nick in precedenza
-		havePreviousNick();
-		
-		//quest'altro è nel caso in cui non ci fosse il precedente nickname
-		//noHavePreviousNick();
+		if(checkNick()){
+			noHavePreviousNick();
+		}else{
+			havePreviousNick();
+		}
 	}
 	
-	private void havePreviousNick(){
+	private void noHavePreviousNick(){
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		int height=metrics.heightPixels;
@@ -177,14 +182,16 @@ public class MainActivity extends Activity {
 	}
 	
 	//questo qui invece salva il nickname
-	private void saveNickname(){
+	private void saveNickname(String n){
+		sql.insertNick(n);
+	}
+	private void havePreviousNick(){
 		
 	}
-	private void noHavePreviousNick(){
-		
-	}
-	private String checkNick(){
-		return null;
+	private boolean checkNick(){
+		Cursor c=sql.fetchNick();
+		if(c.getCount()>0) return true;
+		else return false;
 	}
 	
 	@SuppressWarnings("deprecation")
