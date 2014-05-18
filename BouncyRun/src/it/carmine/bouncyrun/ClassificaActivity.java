@@ -42,6 +42,9 @@ public class ClassificaActivity extends Activity {
 		if(isOnline()){
 			Receive r=new Receive();
 			r.execute();
+			progress = ProgressDialog.show(ClassificaActivity.this, "Ricezione",
+					"Ricevo dati dal server...", true);
+			progress.setCancelable(false);
 		}
 	}
 	
@@ -64,6 +67,7 @@ public class ClassificaActivity extends Activity {
 		@Override
 		public void onPostExecute(Object o){
 			lv.setAdapter(new AdapterClassifica(ClassificaActivity.this,p));
+			progress.dismiss();
 		}
 		@Override
 		protected Object doInBackground(Object... params) {
