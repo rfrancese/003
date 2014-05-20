@@ -270,7 +270,7 @@ public class GameView extends View {
 				
 				Random ho=new Random();
 				
-				if(numobs<maxObstacle){
+				if(numobs<maxObstacle && i>0){
 					if(ho.nextBoolean()){
 						terra.addObstacle();
 						numobs++;
