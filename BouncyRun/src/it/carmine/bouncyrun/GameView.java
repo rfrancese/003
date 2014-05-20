@@ -415,8 +415,6 @@ public class GameView extends View {
 						gameOver();
 					}
 				}
-			//	jumping=false;
-				
 				//se cado è finita
 				if((b.getY()+ball.getHeight())>height){
 					interrupt();
@@ -495,10 +493,10 @@ public class GameView extends View {
 					//Log.i("interrupted exception",e.toString());
 				}
 				//sposto
-				if(vector_y>3){
+				if(vector_y>2){
 					if(b.getX()<width)
 						b.moveXF();
-				}else if(vector_y<-3){
+				}else if(vector_y<-2){
 					if(b.getX()>0)
 						b.moveXB();
 				}
