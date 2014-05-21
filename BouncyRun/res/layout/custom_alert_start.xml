@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF" >
+    android:background="#0099cc" >
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -14,13 +14,18 @@
         <Button
             android:id="@+id/btn_tutorial"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Come giocare" />
+            android:layout_height="40dp"
+            android:background="#993300"
+            android:text="Come giocare"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btn_startgame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:background="#993300"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="5dp"
             android:text="Inizia Gioco" />
     </LinearLayout>
 
@@ -56,21 +61,21 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="Facile"
-            android:textColor="#000000" />
+            android:textColor="#FFFFFF" />
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Normale"
-            android:textColor="#000000" />
+            android:textColor="#FFFFFF" />
 
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Difficile"
-            android:textColor="#000000" />
+            android:textColor="#FFFFFF" />
     </RadioGroup>
 
     <Button
