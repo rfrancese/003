@@ -35,7 +35,7 @@ public class ClassificaActivity extends Activity {
 		
 		i=getIntent();
 		
-		Button share=(Button)findViewById(R.id.button1);
+		Button share=(Button)findViewById(R.id.close);
 		share.setOnClickListener(new OnClick());
 		lv=(ListView)findViewById(R.id.listView1);
 		

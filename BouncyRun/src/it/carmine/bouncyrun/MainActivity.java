@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
 				ImageView altro_share=(ImageView)dialog1.findViewById(R.id.google_share);
 				ImageView altro_classifica=(ImageView)dialog1.findViewById(R.id.altro_share);
 				
-				Button close=(Button)dialog1.findViewById(R.id.button1);
+				Button close=(Button)dialog1.findViewById(R.id.close);
 				Button regame=(Button)dialog1.findViewById(R.id.button2);
 				
 				dialog1.show();
@@ -173,6 +173,16 @@ public class MainActivity extends Activity {
 		Button tutorial=(Button)dialog.findViewById(R.id.btn_tutorial);
 		
 		rg=(RadioGroup)dialog.findViewById(R.id.radioGroup1);
+		
+		
+		Button exit_game=(Button)dialog.findViewById(R.id.close);
+		
+		exit_game.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 		
 		tutorial.setOnClickListener(new OnClick_());
 				

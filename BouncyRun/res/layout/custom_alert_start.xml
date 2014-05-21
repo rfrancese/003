@@ -3,21 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF" >
-
-    <EditText
-        android:id="@+id/editText1"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:ems="10"
-        android:hint="Nickname"
-        android:inputType="textPersonName"
-        android:textSize="25sp" >
+        android:layout_below="@+id/radioGroup1"
+        android:orientation="vertical" >
 
-        <requestFocus />
-    </EditText>
+        <Button
+            android:id="@+id/btn_tutorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Come giocare" />
+
+        <Button
+            android:id="@+id/btn_startgame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inizia Gioco" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="328dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nickname"
+            android:inputType="textPersonName"
+            android:textSize="25sp" />
+
+
+
+    </LinearLayout>
 
     <RadioGroup
         android:id="@+id/radioGroup1"
@@ -25,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/editText1" >
+        android:layout_below="@+id/ll_nick" >
 
         <RadioButton
             android:id="@+id/radio0"
@@ -48,25 +71,14 @@
             android:layout_height="wrap_content"
             android:text="Difficile"
             android:textColor="#000000" />
-
     </RadioGroup>
 
     <Button
-        android:id="@+id/btn_tutorial"
+        android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/radioGroup1"
-        android:text="Come giocare" />
-
-    <Button
-        android:id="@+id/btn_startgame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/btn_tutorial"
-        android:text="Inizia Gioco" />
+        android:layout_alignParentTop="true"
+        android:text="X" />
 
 </RelativeLayout>

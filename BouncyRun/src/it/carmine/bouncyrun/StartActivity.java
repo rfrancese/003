@@ -16,13 +16,15 @@ public class StartActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start);
 		
-		
+		Asinc a=new Asinc();
+		a.execute();
 	}
 	
 	class Asinc extends AsyncTask{
 		@Override
 		public void onPostExecute(Object o){
 			startActivity(new Intent(StartActivity.this,MainActivity.class));
+			finish();
 		}
 		@Override
 		protected Object doInBackground(Object... o){
