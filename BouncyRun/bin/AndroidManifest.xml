@@ -37,8 +37,8 @@
         <activity
             android:name="it.carmine.bouncyrun.ClassificaActivity"
             android:label="@string/title_activity_classifica"
-            android:screenOrientation="sensorLandscape"
-            android:parentActivityName="it.carmine.bouncyrun.MainActivity" >
+            android:parentActivityName="it.carmine.bouncyrun.MainActivity"
+            android:screenOrientation="sensorLandscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.carmine.bouncyrun.MainActivity" />
@@ -55,6 +55,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.carmine.bouncyrun.MainActivity" />
+        </activity>
+        <activity
+            android:name="it.carmine.bouncyrun.StartActivity"
+            android:label="@string/title_activity_start"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
     </application>
 
