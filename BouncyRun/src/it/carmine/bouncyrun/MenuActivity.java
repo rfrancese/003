@@ -52,17 +52,9 @@ public class MenuActivity extends Activity {
 				startActivity(new Intent(MenuActivity.this,TutorialActivity.class));
 				break;	
 			case R.id.button_registrazione:
+				startActivity(new Intent(MenuActivity.this,RegistrazioneActivity.class));
 				break;
 			}
 		}
-	}
-	public void getNewNick(){
-		final Dialog dialog1 = new Dialog(MenuActivity.this,R.style.PauseDialog);
-		dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
-	}
-	public void sakeNewNick(String n){
-		SqlStorage sql=new SqlStorage(this);
-		sql.open();
-		sql.insertNick(n);
 	}
 }

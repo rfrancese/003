@@ -10,5 +10,6 @@
     <string name="title_activity_tutorial">TutorialActivity</string>
     <string name="title_activity_start">StartActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_registrazione">RegistrazioneActivity</string>
 
 </resources>

@@ -64,8 +64,15 @@
         </activity>
         <activity
             android:name="it.carmine.bouncyrun.MenuActivity"
-            android:label="@string/title_activity_menu" 
-            android:screenOrientation="landscape">
+            android:label="@string/title_activity_menu"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="it.carmine.bouncyrun.RegistrazioneActivity"
+            android:label="@string/title_activity_registrazione" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.carmine.bouncyrun.MenuActivity" />
         </activity>
     </application>
 

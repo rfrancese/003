@@ -60,9 +60,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int terrazze=0x7f020012;
     }
     public static final class id {
-        public static final int altro_share=0x7f090018;
-        public static final int btn_startgame=0x7f09001b;
-        public static final int button2=0x7f090019;
+        public static final int altro_share=0x7f09001a;
+        public static final int btn_startgame=0x7f09001d;
+        public static final int button1=0x7f09000d;
+        public static final int button2=0x7f09001b;
         public static final int button_classifica=0x7f09000b;
         public static final int button_exit=0x7f090009;
         public static final int button_play=0x7f090007;
@@ -71,38 +72,40 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int close=0x7f090001;
         public static final int container=0x7f090000;
         public static final int difficolta_classifica=0x7f090004;
-        public static final int facebook_share=0x7f090016;
-        public static final int google_share=0x7f090017;
-        public static final int imageView1=0x7f09000c;
-        public static final int imageView3=0x7f090010;
-        public static final int imageView4=0x7f090012;
-        public static final int imageView5=0x7f090014;
-        public static final int linearLayout1=0x7f090015;
+        public static final int editText1=0x7f09000c;
+        public static final int facebook_share=0x7f090018;
+        public static final int google_share=0x7f090019;
+        public static final int imageView1=0x7f09000e;
+        public static final int imageView3=0x7f090012;
+        public static final int imageView4=0x7f090014;
+        public static final int imageView5=0x7f090016;
+        public static final int linearLayout1=0x7f090017;
         public static final int listView1=0x7f090005;
-        public static final int ll_nick=0x7f09001c;
+        public static final int ll_nick=0x7f09001e;
         public static final int nick_classifica=0x7f090002;
         public static final int punteggio_classifica=0x7f090003;
-        public static final int radio0=0x7f09001d;
-        public static final int radio1=0x7f09001e;
-        public static final int radio2=0x7f09001f;
-        public static final int radioGroup1=0x7f09001a;
+        public static final int radio0=0x7f09001f;
+        public static final int radio1=0x7f090020;
+        public static final int radio2=0x7f090021;
+        public static final int radioGroup1=0x7f09001c;
         public static final int root=0x7f090006;
-        public static final int scrollView1=0x7f09000d;
-        public static final int textView1=0x7f09000e;
-        public static final int textView3=0x7f09000f;
-        public static final int textView4=0x7f090011;
-        public static final int textView5=0x7f090013;
+        public static final int scrollView1=0x7f09000f;
+        public static final int textView1=0x7f090010;
+        public static final int textView3=0x7f090011;
+        public static final int textView4=0x7f090013;
+        public static final int textView5=0x7f090015;
     }
     public static final class layout {
         public static final int activity_classifica=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int activity_menu=0x7f030002;
-        public static final int activity_start=0x7f030003;
-        public static final int activity_tutorial=0x7f030004;
-        public static final int custom_alert_gameover=0x7f030005;
-        public static final int custom_alert_start=0x7f030006;
-        public static final int custom_classifica_list_row=0x7f030007;
-        public static final int fb_login=0x7f030008;
+        public static final int activity_registrazione=0x7f030003;
+        public static final int activity_start=0x7f030004;
+        public static final int activity_tutorial=0x7f030005;
+        public static final int custom_alert_gameover=0x7f030006;
+        public static final int custom_alert_start=0x7f030007;
+        public static final int custom_classifica_list_row=0x7f030008;
+        public static final int fb_login=0x7f030009;
     }
     public static final class string {
         public static final int action_settings=0x7f070005;
@@ -112,6 +115,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int hello_world=0x7f070004;
         public static final int title_activity_classifica=0x7f070003;
         public static final int title_activity_menu=0x7f070008;
+        public static final int title_activity_registrazione=0x7f070009;
         public static final int title_activity_start=0x7f070007;
         public static final int title_activity_tutorial=0x7f070006;
     }

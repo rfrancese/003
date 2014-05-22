@@ -196,7 +196,7 @@ public class MainActivity extends Activity {
 	private boolean checkNick(){
 		Cursor c=sql.fetchNick();
 		if(c.getCount()>0){
-			c.moveToFirst();
+			c.moveToLast();
 			nick=c.getString(1);
 			Log.i("nickname",nick);
 			return true;
