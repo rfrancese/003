@@ -1,6 +1,7 @@
 package it.carmine.bouncyrun;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,8 @@ public class MenuActivity extends Activity {
 				finish();
 				break;
 			case R.id.button_play:
+				Intent i=new Intent(MenuActivity.this,MainActivity.class);
+				startActivity(i);
 				break;
 			case R.id.button_classifica:
 				break;

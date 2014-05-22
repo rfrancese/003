@@ -12,14 +12,6 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/btn_tutorial"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#993300"
-            android:text="Come giocare"
-            android:textColor="#FFFFFF" />
-
-        <Button
             android:id="@+id/btn_startgame"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -32,18 +24,15 @@
     <LinearLayout
         android:id="@+id/ll_nick"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" >
 
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="328dp"
+        <Button
+            android:id="@+id/close"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Nickname"
-            android:inputType="textPersonName"
-            android:textSize="25sp" />
-
-
+            android:text="Exit" />
 
     </LinearLayout>
 
@@ -77,13 +66,5 @@
             android:text="Difficile"
             android:textColor="#FFFFFF" />
     </RadioGroup>
-
-    <Button
-        android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="X" />
 
 </RelativeLayout>

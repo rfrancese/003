@@ -34,7 +34,7 @@
         android:layout_height="60dp"
         android:layout_alignLeft="@+id/button_exit"
         android:layout_below="@+id/button_play"
-        android:text="WebSite" />
+        android:text="Tutorial" />
 
     <Button
         android:id="@+id/button_classifica"

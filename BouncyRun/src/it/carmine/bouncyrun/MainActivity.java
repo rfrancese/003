@@ -50,13 +50,11 @@ public class MainActivity extends Activity {
 		sql=new SqlStorage(this);
 		sql.open();
 		
+		if(!checkNick()) nick="anonymous";
+				
+		Log.i("nickname", nick);
 		gs=new GameSettings();
-		
-		if(checkNick()){
 			noHavePreviousNick(nick);
-		}else{
-			noHavePreviousNick(null);
-		}
 	}
 	
 	private void noHavePreviousNick(String nick){
@@ -170,7 +168,6 @@ public class MainActivity extends Activity {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.custom_alert_start);
 		Button b=(Button) dialog.findViewById(R.id.btn_startgame);
-		Button tutorial=(Button)dialog.findViewById(R.id.btn_tutorial);
 		
 		rg=(RadioGroup)dialog.findViewById(R.id.radioGroup1);
 		
@@ -184,14 +181,8 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		tutorial.setOnClickListener(new OnClick_());
 				
 		b.setOnClickListener(new OnClick_());
-		
-		if(nick!=null){
-			EditText et=(EditText)dialog.findViewById(R.id.editText1);
-			et.setText(nick);
-		}
 		
 		dialog.setCancelable(false);
 		dialog.show();
@@ -307,38 +298,27 @@ public class MainActivity extends Activity {
 		public void onClick(View v) {
 			switch(v.getId()){
 			case R.id.btn_startgame:
-				EditText et=(EditText)dialog.findViewById(R.id.editText1);				
-				if(!et.getText().toString().matches("")){
-					switch(rg.getCheckedRadioButtonId()){
-					case R.id.radio0:
-						gs.setDifficult(gs.DIFFICULT_EASY);
-						break;
-					case R.id.radio1:
-						gs.setDifficult(gs.DIFFICULT_NORMAL);
-						break;
-					case R.id.radio2:
-						gs.setDifficult(gs.DIFFICULT_HARD);
-						break;
-					}
-					
-					gs.setUserSettings(new UserSettings());
-					gs.getUserSettings().setNick(et.getText().toString());
-					//salvo il nick
-					saveNickname(et.getText().toString());
-					gw.setGameSettings(gs);
-					
-					//gw.startGame();
-					dialog.dismiss();
-					hasStart=true;
-					
-				}else{
-					Toast toast=Toast.makeText(MainActivity.this,
-							"Devi fornire un nickname!",Toast.LENGTH_LONG);
-					toast.show();
+				switch(rg.getCheckedRadioButtonId()){
+				case R.id.radio0:
+					gs.setDifficult(gs.DIFFICULT_EASY);
+					break;
+				case R.id.radio1:
+					gs.setDifficult(gs.DIFFICULT_NORMAL);
+					break;
+				case R.id.radio2:
+					gs.setDifficult(gs.DIFFICULT_HARD);
+					break;
 				}
-			break;
-			case R.id.btn_tutorial:
-				startActivity(new Intent(MainActivity.this,TutorialActivity.class));
+					
+				gs.setUserSettings(new UserSettings());
+				gs.getUserSettings().setNick(nick);
+				//salvo il nick
+				saveNickname(nick);
+				gw.setGameSettings(gs);
+					
+				//gw.startGame();
+				dialog.dismiss();
+				hasStart=true;
 			break;
 			}
 			
