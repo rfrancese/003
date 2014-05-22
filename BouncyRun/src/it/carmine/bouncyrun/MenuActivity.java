@@ -1,11 +1,14 @@
 package it.carmine.bouncyrun;
 
+import it.carmine.bouncyrun.sql.SqlStorage;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
@@ -52,5 +55,14 @@ public class MenuActivity extends Activity {
 				break;
 			}
 		}
+	}
+	public void getNewNick(){
+		final Dialog dialog1 = new Dialog(MenuActivity.this,R.style.PauseDialog);
+		dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+	}
+	public void sakeNewNick(String n){
+		SqlStorage sql=new SqlStorage(this);
+		sql.open();
+		sql.insertNick(n);
 	}
 }

@@ -98,8 +98,7 @@ public class MainActivity extends Activity {
 				close.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View v) {
-						mustclose=true;
-						finish();					
+						showCloseDialog();				
 					}
 					
 				});
@@ -177,7 +176,7 @@ public class MainActivity extends Activity {
 		exit_game.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				finish();
+				showCloseDialog();
 			}
 		});
 		
@@ -246,7 +245,8 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Stop the activity
-                MainActivity.this.finish();    
+                MainActivity.this.finish(); 
+                mustclose=true;
             }
         })
         .setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -254,7 +254,7 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
             	//se è no riprendo
             	gw.startListner();
-        		gw.resumeAllExecution();    
+        		gw.resumeAllExecution();   
             }
         })
         .show();
