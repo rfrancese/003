@@ -22,6 +22,13 @@ public class MenuActivity extends Activity {
 		reg=(Button)findViewById(R.id.button_registrazione);
 		stats=(Button)findViewById(R.id.button_classifica);
 		web=(Button)findViewById(R.id.button_web);
+		
+		OnCLick oc=new OnCLick();
+		exit.setOnClickListener(oc);
+		play.setOnClickListener(oc);
+		reg.setOnClickListener(oc);
+		stats.setOnClickListener(oc);
+		web.setOnClickListener(oc);
 	}
 	
 	class OnCLick implements OnClickListener{
@@ -36,8 +43,10 @@ public class MenuActivity extends Activity {
 				startActivity(i);
 				break;
 			case R.id.button_classifica:
+				startActivity(new Intent(MenuActivity.this,ClassificaActivity.class));
 				break;
 			case R.id.button_web:
+				startActivity(new Intent(MenuActivity.this,TutorialActivity.class));
 				break;	
 			case R.id.button_registrazione:
 				break;

@@ -23,7 +23,7 @@ public class StartActivity extends Activity {
 	class Asinc extends AsyncTask{
 		@Override
 		public void onPostExecute(Object o){
-			startActivity(new Intent(StartActivity.this,MainActivity.class));
+			startActivity(new Intent(StartActivity.this,MenuActivity.class));
 			finish();
 		}
 		@Override

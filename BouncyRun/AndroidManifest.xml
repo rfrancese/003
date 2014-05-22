@@ -36,7 +36,7 @@
             android:screenOrientation="sensorLandscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.carmine.bouncyrun.MainActivity" />
+                android:value="it.carmine.bouncyrun.MenuActivity" />
         </activity>
         <activity
             android:name="it.carmine.bouncyrun.social_share.FacebookLoginActivity"
@@ -49,7 +49,7 @@
             android:parentActivityName="it.carmine.bouncyrun.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.carmine.bouncyrun.MainActivity" />
+                android:value="it.carmine.bouncyrun.MenuActivity" />
         </activity>
         <activity
             android:name="it.carmine.bouncyrun.StartActivity"
@@ -64,7 +64,8 @@
         </activity>
         <activity
             android:name="it.carmine.bouncyrun.MenuActivity"
-            android:label="@string/title_activity_menu" >
+            android:label="@string/title_activity_menu" 
+            android:screenOrientation="landscape">
         </activity>
     </application>
 
