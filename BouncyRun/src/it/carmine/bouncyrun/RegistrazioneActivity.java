@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RegistrazioneActivity extends Activity {
 
@@ -31,5 +32,7 @@ public class RegistrazioneActivity extends Activity {
 		SqlStorage sql=new SqlStorage(this);
 		sql.open();
 		sql.insertNick(n);
+		Toast t=Toast.makeText(this, "Nick saved!", Toast.LENGTH_LONG);
+		t.show();
 	}
 }
