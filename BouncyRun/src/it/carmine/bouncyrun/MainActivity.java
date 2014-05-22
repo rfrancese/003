@@ -93,7 +93,7 @@ public class MainActivity extends Activity {
 				ImageView altro_classifica=(ImageView)dialog1.findViewById(R.id.altro_share);
 				
 				Button close=(Button)dialog1.findViewById(R.id.close);
-				Button regame=(Button)dialog1.findViewById(R.id.button_registrazione);
+				Button regame=(Button)dialog1.findViewById(R.id.button2);
 				
 				dialog1.show();
 

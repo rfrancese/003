@@ -36,6 +36,8 @@ public class MenuActivity extends Activity {
 				break;
 			case R.id.button_web:
 				break;	
+			case R.id.button_registrazione:
+				break;
 			}
 		}
 	}
