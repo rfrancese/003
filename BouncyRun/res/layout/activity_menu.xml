@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" >
+
+    <Button
+        android:id="@+id/button_play"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Play" />
+
+    <Button
+        android:id="@+id/button_registrazione"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/button_play"
+        android:layout_toLeftOf="@+id/button_play"
+        android:text="Register" />
+
+    <Button
+        android:id="@+id/button_exit"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@+id/button_registrazione"
+        android:layout_toRightOf="@+id/button_play"
+        android:text="Exit" />
+
+    <Button
+        android:id="@+id/button_web"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@+id/button_exit"
+        android:layout_below="@+id/button_play"
+        android:text="WebSite" />
+
+    <Button
+        android:id="@+id/button_classifica"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/button_play"
+        android:layout_toLeftOf="@+id/button_play"
+        android:text="Stats" />
+
+</RelativeLayout>

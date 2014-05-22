@@ -12,6 +12,20 @@
             backward-compatibility can go here.
         -->
     </style>
+    
+    
+    <style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
+	    <item name="android:bottomBright">#FFFFFF</item>
+	    <item name="android:bottomDark">#FFFFFF</item>
+	    <item name="android:bottomMedium">#FFFFFF</item>
+	    <item name="android:centerBright">#FFFFFF</item>
+	    <item name="android:centerDark">#FFFFFF</item>
+	    <item name="android:centerMedium">#FFFFFF</item>
+	    <item name="android:fullBright">#CC3300</item>
+	    <item name="android:fullDark">#CC3300</item>
+	    <item name="android:topBright">#333399</item>
+	    <item name="android:topDark">#333399</item>
+	</style>
 
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
@@ -40,6 +54,7 @@
 	<style name="PauseDialogAnimation">
     	<item name="android:windowEnterAnimation">@anim/fadein</item>
     	<item name="android:windowExitAnimation">@anim/fadeout</item>
+    	<item name="android:alertDialogStyle">@style/CustomDialogTheme</item>
 	</style>
     
 </resources>
