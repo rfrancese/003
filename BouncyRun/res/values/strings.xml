@@ -11,5 +11,6 @@
     <string name="title_activity_start">StartActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_registrazione">RegistrazioneActivity</string>
+    <string name="title_activity_banner">BannerActivity</string>
 
 </resources>
