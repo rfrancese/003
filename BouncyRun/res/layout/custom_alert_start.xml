@@ -14,11 +14,13 @@
         <Button
             android:id="@+id/btn_startgame"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#993300"
-            android:textColor="#FFFFFF"
+            android:layout_height="60dp"
             android:layout_marginTop="5dp"
-            android:text="Inizia Gioco" />
+            android:background="@drawable/bg_button"
+            android:text="Inizia Gioco"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -31,8 +33,11 @@
         <Button
             android:id="@+id/close"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Exit" />
+            android:layout_height="60dp"
+            android:background="@drawable/bg_button"
+            android:text="Exit"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
 
     </LinearLayout>
 

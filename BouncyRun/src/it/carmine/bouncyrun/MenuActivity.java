@@ -62,4 +62,10 @@ public class MenuActivity extends Activity {
 			}
 		}
 	}
+	
+	@Override
+	public void onDestroy(){
+		super.onDestroy(); 
+		System.exit(0);
+	}
 }

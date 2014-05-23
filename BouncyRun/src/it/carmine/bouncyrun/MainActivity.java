@@ -43,9 +43,14 @@ public class MainActivity extends Activity {
 	private GameSettings gs;
 	private SqlStorage sql;
 	private String nick;
+	private Typeface tf;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		tf=Typeface.createFromAsset(this.getAssets(),
+				"font/pipe.ttf");
+		
 		
 		sql=new SqlStorage(this);
 		sql.open();
@@ -93,6 +98,8 @@ public class MainActivity extends Activity {
 				Button close=(Button)dialog1.findViewById(R.id.close);
 				Button regame=(Button)dialog1.findViewById(R.id.button2);
 				
+				close.setTypeface(tf);
+				regame.setTypeface(tf);
 				dialog1.show();
 
 				close.setOnClickListener(new OnClickListener(){
@@ -172,6 +179,9 @@ public class MainActivity extends Activity {
 		
 		
 		Button exit_game=(Button)dialog.findViewById(R.id.close);
+		
+		b.setTypeface(tf);
+		exit_game.setTypeface(tf);
 		
 		exit_game.setOnClickListener(new OnClickListener(){
 			@Override
@@ -278,8 +288,6 @@ public class MainActivity extends Activity {
 	public void onDestroy(){
 		super.onDestroy(); 
 		sql.close();
-		if(mustclose)
-			System.exit(0);
 	}
 	
 	public boolean isOnline() {
