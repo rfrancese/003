@@ -40,29 +40,32 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class drawable {
         public static final int ball=0x7f020000;
-        public static final int bgcolor=0x7f020001;
-        public static final int broke_ball=0x7f020002;
-        public static final int cade=0x7f020003;
-        public static final int close_btn=0x7f020004;
-        public static final int cloud_small=0x7f020005;
-        public static final int facebook_share=0x7f020006;
-        public static final int google_share=0x7f020007;
-        public static final int ic_launcher=0x7f020008;
-        public static final int inclina=0x7f020009;
-        public static final int obstacled_terrace=0x7f02000a;
-        public static final int salta=0x7f02000b;
-        public static final int share_altro=0x7f02000c;
-        public static final int spine=0x7f02000d;
-        public static final int splash=0x7f02000e;
-        public static final int star1=0x7f02000f;
-        public static final int star2=0x7f020010;
-        public static final int terrace=0x7f020011;
-        public static final int terrazze=0x7f020012;
+        public static final int bg_button=0x7f020001;
+        public static final int bgcolor=0x7f020002;
+        public static final int broke_ball=0x7f020003;
+        public static final int button=0x7f020004;
+        public static final int button_pressed=0x7f020005;
+        public static final int cade=0x7f020006;
+        public static final int close_btn=0x7f020007;
+        public static final int cloud_small=0x7f020008;
+        public static final int facebook_share=0x7f020009;
+        public static final int google_share=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int inclina=0x7f02000c;
+        public static final int obstacled_terrace=0x7f02000d;
+        public static final int salta=0x7f02000e;
+        public static final int share_altro=0x7f02000f;
+        public static final int spine=0x7f020010;
+        public static final int splash=0x7f020011;
+        public static final int star1=0x7f020012;
+        public static final int star2=0x7f020013;
+        public static final int terrace=0x7f020014;
+        public static final int terrazze=0x7f020015;
     }
     public static final class id {
         public static final int altro_share=0x7f09001a;
         public static final int btn_startgame=0x7f09001d;
-        public static final int button1=0x7f09000d;
+        public static final int button1=0x7f09000e;
         public static final int button2=0x7f09001b;
         public static final int button_classifica=0x7f09000b;
         public static final int button_exit=0x7f090009;
@@ -72,10 +75,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int close=0x7f090001;
         public static final int container=0x7f090000;
         public static final int difficolta_classifica=0x7f090004;
-        public static final int editText1=0x7f09000c;
+        public static final int editText1=0x7f09000d;
         public static final int facebook_share=0x7f090018;
         public static final int google_share=0x7f090019;
-        public static final int imageView1=0x7f09000e;
+        public static final int imageView1=0x7f09000c;
         public static final int imageView3=0x7f090012;
         public static final int imageView4=0x7f090014;
         public static final int imageView5=0x7f090016;

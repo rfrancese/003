@@ -2,6 +2,7 @@ package it.carmine.bouncyrun;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,12 +22,21 @@ public class MenuActivity extends Activity {
 		stats=(Button)findViewById(R.id.button_classifica);
 		web=(Button)findViewById(R.id.button_web);
 		
+		Typeface tf=Typeface.createFromAsset(this.getAssets(),
+				"font/pipe.ttf");
+		
 		OnCLick oc=new OnCLick();
 		exit.setOnClickListener(oc);
 		play.setOnClickListener(oc);
 		reg.setOnClickListener(oc);
 		stats.setOnClickListener(oc);
 		web.setOnClickListener(oc);
+		
+		exit.setTypeface(tf);
+		play.setTypeface(tf);
+		reg.setTypeface(tf);
+		stats.setTypeface(tf);
+		web.setTypeface(tf);
 	}
 	
 	class OnCLick implements OnClickListener{

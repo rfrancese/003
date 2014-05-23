@@ -46,6 +46,7 @@
         <activity
             android:name="it.carmine.bouncyrun.TutorialActivity"
             android:label="@string/title_activity_tutorial"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:parentActivityName="it.carmine.bouncyrun.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -65,10 +66,12 @@
         <activity
             android:name="it.carmine.bouncyrun.MenuActivity"
             android:label="@string/title_activity_menu"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="it.carmine.bouncyrun.RegistrazioneActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:label="@string/title_activity_registrazione" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

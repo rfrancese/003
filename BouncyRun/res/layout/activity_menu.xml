@@ -7,42 +7,65 @@
 
     <Button
         android:id="@+id/button_play"
-        android:layout_width="100dp"
+        android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Play" />
+        android:background="@drawable/bg_button"
+        android:text="Play"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/button_registrazione"
-        android:layout_width="100dp"
+        android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_above="@+id/button_play"
         android:layout_toLeftOf="@+id/button_play"
-        android:text="Register" />
+        android:background="@drawable/bg_button"
+        android:text="Register"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/button_exit"
-        android:layout_width="100dp"
+        android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_alignBottom="@+id/button_registrazione"
         android:layout_toRightOf="@+id/button_play"
-        android:text="Exit" />
+        android:background="@drawable/bg_button"
+        android:text="Exit"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/button_web"
-        android:layout_width="100dp"
+        android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_alignLeft="@+id/button_exit"
         android:layout_below="@+id/button_play"
-        android:text="Tutorial" />
+        android:background="@drawable/bg_button"
+        android:text="Tutorial"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/button_classifica"
-        android:layout_width="100dp"
+        android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_below="@+id/button_play"
         android:layout_toLeftOf="@+id/button_play"
-        android:text="Stats" />
+        android:background="@drawable/bg_button"
+        android:text="Stats"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/button_play"
+        android:src="@drawable/cloud_small" />
 
 </RelativeLayout>
