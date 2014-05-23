@@ -24,6 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText1"
         android:layout_centerHorizontal="true"
-        android:text="Accept" />
+        android:background="@drawable/bg_button"
+        android:text="Accept"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

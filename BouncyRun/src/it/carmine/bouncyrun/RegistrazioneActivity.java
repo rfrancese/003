@@ -2,6 +2,7 @@ package it.carmine.bouncyrun;
 
 import it.carmine.bouncyrun.sql.SqlStorage;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +28,10 @@ public class RegistrazioneActivity extends Activity {
 				saveNewNick(nick);
 			}
 		});
+		
+		Typeface tf=Typeface.createFromAsset(this.getAssets(),
+				"font/pipe.ttf");
+		b.setTypeface(tf);
 	}
 	public void saveNewNick(String n){
 		SqlStorage sql=new SqlStorage(this);
