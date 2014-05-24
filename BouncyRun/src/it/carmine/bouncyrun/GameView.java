@@ -334,7 +334,7 @@ public class GameView extends View {
 					"font/pipe.ttf"));
 			p.setTextSize(30);
 			p.setColor(Color.WHITE);
-			c.drawText("Tocca lo schermo per iniziare", 40, 45, p);
+			c.drawText(getResources().getString(R.string.game_how_to_start), 40, 45, p);
 			
 			
 			//palla

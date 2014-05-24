@@ -87,10 +87,10 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
     					getIntent().getStringExtra("nick")+
 							" ha totalizzato un punteggio di "+
 								getIntent().getStringExtra("points")+" salti", 
-						"http://image-gj.9game.com/2013/5/2/9024810.jpg",
-						"http://enimrac92.altervista.org/", 
+						"http://enimrac92.altervista.org/bdSir/ic_launcher.png",
+						"https://play.google.com/store/apps/details?id=it.carmine.bouncyrun", 
 						"Il mio punteggio su BouncyRun", 
-						"http://enimrac92.altervista.org/",
+						"https://play.google.com/store/apps/details?id=it.carmine.bouncyrun",
                         "Il mio punteggio su BouncyRun"
                    );
     		} catch(EasyFacebookError e){
