@@ -17,7 +17,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/bg_button"
-            android:text="Inizia Gioco"
+            android:text="@string/game_start_btn_s"
             android:textColor="#FFFFFF"
             android:textSize="30sp" />
 
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/bg_button"
-            android:text="Exit"
+            android:text="@string/game_exit_btn_s"
             android:textColor="#FFFFFF"
             android:textSize="30sp" />
 
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Facile"
+            android:text="@string/game_easy_check"
             android:textColor="#FFFFFF"
             android:textSize="30sp" />
 
@@ -62,7 +62,7 @@
             android:id="@+id/radio1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Normale"
+            android:text="@string/game_medium_check"
             android:textColor="#FFFFFF"
             android:textSize="30sp" />
 
@@ -70,7 +70,7 @@
             android:id="@+id/radio2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Difficile"
+            android:text="@string/game_hard_check"
             android:textColor="#FFFFFF"
             android:textSize="30sp" />
 

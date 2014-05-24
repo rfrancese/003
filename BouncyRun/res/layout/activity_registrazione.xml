@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:ems="10"
-        android:hint="New nick"
+        android:hint="@string/reg_nick_reg"
         android:inputType="textPersonName" >
 
         <requestFocus />
@@ -25,7 +25,7 @@
         android:layout_below="@+id/editText1"
         android:layout_centerHorizontal="true"
         android:background="@drawable/bg_button"
-        android:text="Accept"
+        android:text="@string/reg_accept_reg"
         android:textColor="#FFFFFF" />
 
 </RelativeLayout>

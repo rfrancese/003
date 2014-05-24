@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">BouncyRun</string>
+    <string name="app_name">Bouncy Run</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_classifica">ClassificaActivity</string>
@@ -12,5 +12,38 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_registrazione">RegistrazioneActivity</string>
     <string name="title_activity_banner">BannerActivity</string>
-
+    
+    
+    <!-- stringhe usate nella app -->
+    <!-- menu -->
+	<string name="menu_play_btn">Play</string>
+	<string name="menu_registrati_btn">Sign in</string>
+	<string name="menu_exit_btn">Exit</string>
+	<string name="menu_stats_btn">Records</string>
+	<string name="menu_tutorial_btn">Tutorial</string>
+	
+	<!-- game -->
+	<string name="game_how_to_start">Touch the screen to start</string>
+	<string name="game_exit_btn_s">Exit</string>
+	<string name="game_start_btn_s">Start Game</string>
+	<string name="game_easy_check">Easy</string>
+	<string name="game_medium_check">Medium</string>
+	<string name="game_hard_check">Hard</string>
+	<!-- gameover -->
+	<string name="game_o_exit_btn_o">Exit</string>
+	<string name="game_o_regame_btn">Regame</string>
+	<!-- stats -->
+	<string name="stats_share_btn">Share result on server</string>
+	<string name="stats_nick_lbl">Nick</string>
+	<string name="stats_points_lbl">Points</string>
+	<string name="stats_difficulty_lbl">Diff</string>
+	
+	<!-- tutorial -->
+	<string name="tutorial_inclina">Tilt the device to move the ball</string>
+	<string name="tutorial_salta">Jump on the platforms to earn a point</string>
+	<string name="tutorial_spinate">Avoid the boned platforms  or you\'ll lose</string>
+	<string name="tutorial_cadere">Avoid to fall or you\'ll lose</string>
+	<!-- registrati -->
+	<string name="reg_nick_reg">New Nick</string>
+	<string name="reg_accept_reg">Accept</string>
 </resources>

@@ -117,13 +117,56 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int app_name=0x7f070000;
         public static final int dummy_button=0x7f070001;
         public static final int dummy_content=0x7f070002;
+        public static final int game_easy_check=0x7f070013;
+        public static final int game_exit_btn_s=0x7f070011;
+        public static final int game_hard_check=0x7f070015;
+        /**  game 
+ game 
+         */
+        public static final int game_how_to_start=0x7f070010;
+        public static final int game_medium_check=0x7f070014;
+        /**  gameover 
+ gameover 
+         */
+        public static final int game_o_exit_btn_o=0x7f070016;
+        public static final int game_o_regame_btn=0x7f070017;
+        public static final int game_start_btn_s=0x7f070012;
         public static final int hello_world=0x7f070004;
+        public static final int menu_exit_btn=0x7f07000d;
+        /**  stringhe usate nella app 
+ menu 
+ stringhe usate nella app 
+ menu 
+         */
+        public static final int menu_play_btn=0x7f07000b;
+        public static final int menu_registrati_btn=0x7f07000c;
+        public static final int menu_stats_btn=0x7f07000e;
+        public static final int menu_tutorial_btn=0x7f07000f;
+        public static final int reg_accept_reg=0x7f070021;
+        /**  registrati 
+ registrati 
+         */
+        public static final int reg_nick_reg=0x7f070020;
+        public static final int stats_difficulty_lbl=0x7f07001b;
+        public static final int stats_nick_lbl=0x7f070019;
+        public static final int stats_points_lbl=0x7f07001a;
+        /**  stats 
+ stats 
+         */
+        public static final int stats_share_btn=0x7f070018;
         public static final int title_activity_banner=0x7f07000a;
         public static final int title_activity_classifica=0x7f070003;
         public static final int title_activity_menu=0x7f070008;
         public static final int title_activity_registrazione=0x7f070009;
         public static final int title_activity_start=0x7f070007;
         public static final int title_activity_tutorial=0x7f070006;
+        public static final int tutorial_cadere=0x7f07001f;
+        /**  tutorial 
+ tutorial 
+         */
+        public static final int tutorial_inclina=0x7f07001c;
+        public static final int tutorial_salta=0x7f07001d;
+        public static final int tutorial_spinate=0x7f07001e;
     }
     public static final class style {
         /** 

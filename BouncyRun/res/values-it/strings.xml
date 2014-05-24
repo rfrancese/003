@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Bouncy Run</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_classifica">ClassificaActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_tutorial">TutorialActivity</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_registrazione">RegistrazioneActivity</string>
+    <string name="title_activity_banner">BannerActivity</string>
+    
+    
+    <!-- stringhe usate nella app -->
+    <!-- menu -->
+	<string name="menu_play_btn">Gioca</string>
+	<string name="menu_registrati_btn">Registrati</string>
+	<string name="menu_exit_btn">Esci</string>
+	<string name="menu_stats_btn">Record</string>
+	<string name="menu_tutorial_btn">Tutorial</string>
+	
+	<!-- game -->
+	<string name="game_how_to_start">Tocca lo schermo per iniziare</string>
+	<string name="game_exit_btn_s">Esci</string>
+	<string name="game_start_btn_s">Inizia Gioco</string>
+	<string name="game_easy_check">Facile</string>
+	<string name="game_medium_check">Normale</string>
+	<string name="game_hard_check">Difficile</string>
+	<!-- gameover -->
+	<string name="game_o_exit_btn_o">Esci</string>
+	<string name="game_o_regame_btn">Riprova</string>
+	<!-- stats -->
+	<string name="stats_share_btn">Condividi sul server</string>
+	<string name="stats_nick_lbl">Nick</string>
+	<string name="stats_points_lbl">Punti</string>
+	<string name="stats_difficulty_lbl">Diff</string>
+	
+	<!-- tutorial -->
+	<string name="tutorial_inclina">Inclina il device per muovere la palla a destra o sinistra</string>
+	<string name="tutorial_salta">Salta sulle piattaforme per guadagnare punti</string>
+	<string name="tutorial_spinate">Evita le spine o perderai</string>
+	<string name="tutorial_cadere">Evita di cadere o perderai</string>
+	<!-- registrati -->
+	<string name="reg_nick_reg">Nuovo Nick</string>
+	<string name="reg_accept_reg">Accetta</string>
+</resources>
