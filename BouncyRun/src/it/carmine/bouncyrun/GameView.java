@@ -493,10 +493,10 @@ public class GameView extends View {
 					//Log.i("interrupted exception",e.toString());
 				}
 				//sposto
-				if(vector_y>2){
+				if(vector_y>1){
 					if(b.getX()<width)
 						b.moveXF();
-				}else if(vector_y<-2){
+				}else if(vector_y<-1){
 					if(b.getX()>0)
 						b.moveXB();
 				}

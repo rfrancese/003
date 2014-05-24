@@ -54,7 +54,7 @@ public class MenuActivity extends Activity {
 				startActivity(new Intent(MenuActivity.this,ClassificaActivity.class));
 				break;
 			case R.id.button_web:
-				startActivity(new Intent(MenuActivity.this,TutorialActivity.class));
+				//startActivity(new Intent(MenuActivity.this,TutorialActivity.class));
 				break;	
 			case R.id.button_registrazione:
 				startActivity(new Intent(MenuActivity.this,RegistrazioneActivity.class));
