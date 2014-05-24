@@ -6,6 +6,7 @@ import com.adsdk.sdk.AdManager;
 import com.adsdk.sdk.banner.AdView;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 public class BannerActivity extends Activity implements AdListener{
 	private AdView mAdView;
 	private AdManager mManager;
+	private ProgressDialog progressDialog;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,20 +32,27 @@ public class BannerActivity extends Activity implements AdListener{
 		
 		mManager.setListener(this);
 		mManager.requestAd();
+		
+		 progressDialog=ProgressDialog.show(this,"","Caricamento in corso...");
+		 progressDialog.setCancelable(false);
 	}
 
 	@Override
 	public void adClicked() {
+		finish();
 	}
 
 	@Override
 	public void adClosed(Ad arg0, boolean arg1) {
+		finish();
 	}
 
 	@Override
 	public void adLoadSucceeded(Ad arg0) {
-		if(mManager !=null && mManager.isAdLoaded())
+		if(mManager !=null && mManager.isAdLoaded()){
 			mManager.showAd();
+		}
+		progressDialog.dismiss();
 	}
 
 	@Override
