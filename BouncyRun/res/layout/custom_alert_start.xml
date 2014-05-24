@@ -55,21 +55,25 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="Facile"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Normale"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
 
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Difficile"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
     </RadioGroup>
 
 </RelativeLayout>

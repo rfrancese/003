@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -29,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,7 @@ public class MainActivity extends Activity {
 	private SqlStorage sql;
 	private String nick;
 	private Typeface tf;
+	private boolean mustrestart=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -110,10 +113,9 @@ public class MainActivity extends Activity {
 					
 				});
 				regame.setOnClickListener(new OnClickListener(){
-					@Override
 					public void onClick(View v) {
 						finish();
-						startActivity(new Intent(MainActivity.this,MainActivity.class));
+						mustrestart=true;
 					}
 				});
 				facebook_share.setOnClickListener(new OnClickListener(){
@@ -177,7 +179,14 @@ public class MainActivity extends Activity {
 		
 		rg=(RadioGroup)dialog.findViewById(R.id.radioGroup1);
 		
+		RadioButton facile,normale,difficile;
+		facile=(RadioButton)dialog.findViewById(R.id.radio0);
+		normale=(RadioButton)dialog.findViewById(R.id.radio1);
+		difficile=(RadioButton)dialog.findViewById(R.id.radio2);
 		
+		facile.setTypeface(tf);
+		normale.setTypeface(tf);
+		difficile.setTypeface(tf); 
 		Button exit_game=(Button)dialog.findViewById(R.id.close);
 		
 		b.setTypeface(tf);
@@ -241,12 +250,10 @@ public class MainActivity extends Activity {
 	}
 	
 	private void showCloseDialog(){
-		
 		//fermo tutto
 		gw.stopListner();
 		gw.stopAllExecution();
-		
-		
+
 		new AlertDialog.Builder(this)
         .setIcon(android.R.drawable.ic_dialog_alert)
         .setTitle("Conferma uscita")
@@ -268,7 +275,6 @@ public class MainActivity extends Activity {
             }
         })
         .show();
-
 	}
 	@Override
 	public void onPause(){
@@ -288,8 +294,13 @@ public class MainActivity extends Activity {
 	public void onDestroy(){
 		super.onDestroy(); 
 		sql.close();
-		
-		startActivity(new Intent(MainActivity.this,BannerActivity.class));
+		gw.stopListner();
+		gw.stopAllExecution();
+		if(mustrestart){
+			startActivity(getIntent());
+		}else{
+			startActivity(new Intent(MainActivity.this,BannerActivity.class));
+		}
 	}
 	
 	public boolean isOnline() {
