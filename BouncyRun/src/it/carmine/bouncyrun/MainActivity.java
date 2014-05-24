@@ -105,7 +105,7 @@ public class MainActivity extends Activity {
 				close.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View v) {
-						showCloseDialog();				
+						showCloseDialog();		
 					}
 					
 				});
@@ -288,6 +288,8 @@ public class MainActivity extends Activity {
 	public void onDestroy(){
 		super.onDestroy(); 
 		sql.close();
+		
+		startActivity(new Intent(MainActivity.this,BannerActivity.class));
 	}
 	
 	public boolean isOnline() {
