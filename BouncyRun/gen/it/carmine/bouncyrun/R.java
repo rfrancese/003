@@ -117,6 +117,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int app_name=0x7f070000;
         public static final int dummy_button=0x7f070001;
         public static final int dummy_content=0x7f070002;
+        public static final int errore_nick=0x7f070023;
         public static final int game_easy_check=0x7f070013;
         public static final int game_exit_btn_s=0x7f070011;
         public static final int game_hard_check=0x7f070015;
@@ -167,6 +168,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tutorial_inclina=0x7f07001c;
         public static final int tutorial_salta=0x7f07001d;
         public static final int tutorial_spinate=0x7f07001e;
+        /**  dialogs 
+ varie dialogs 
+         */
+        public static final int uscire=0x7f070022;
     }
     public static final class style {
         /** 

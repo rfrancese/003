@@ -61,6 +61,7 @@ public class BannerActivity extends Activity implements AdListener{
 
 	@Override
 	public void noAdFound() {
+		finish();
 	}
 	@Override
 	public void onDestroy(){

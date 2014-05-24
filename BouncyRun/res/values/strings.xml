@@ -46,4 +46,9 @@
 	<!-- registrati -->
 	<string name="reg_nick_reg">New Nick</string>
 	<string name="reg_accept_reg">Accept</string>
+	
+	
+	<!-- dialogs -->
+	<string name="uscire">Exit?</string>
+	<string name="errore_nick">Nick not found, please register by main menu!</string>
 </resources>

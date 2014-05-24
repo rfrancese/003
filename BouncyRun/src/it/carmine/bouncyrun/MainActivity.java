@@ -256,8 +256,8 @@ public class MainActivity extends Activity {
 
 		new AlertDialog.Builder(this)
         .setIcon(android.R.drawable.ic_dialog_alert)
-        .setTitle("Conferma uscita")
-        .setMessage("Sicuro di voler uscire?")
+        .setTitle("Exit")
+        .setMessage(getResources().getString(R.string.uscire))
         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

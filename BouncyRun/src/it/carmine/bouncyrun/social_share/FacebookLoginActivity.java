@@ -5,7 +5,10 @@ package it.carmine.bouncyrun.social_share;
 import it.carmine.bouncyrun.ClassificaActivity;
 import it.carmine.bouncyrun.R;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +23,7 @@ import com.easy.facebook.android.facebook.LoginListener;
 public class FacebookLoginActivity extends Activity implements LoginListener {
 
     private FBLoginManager fbLoginManager;
-
+	private ProgressDialog progress;
     //replace it with your own Facebook App ID
     public final String KODEFUNFBAPP_ID = "294476200715169";
 
@@ -28,7 +31,11 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
     public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             //setContentView(R.layout.main);
-            connectToFacebook();
+            
+    		progress = ProgressDialog.show(FacebookLoginActivity.this, "Invio",
+				    "Invio al server dei dati", true);
+			progress.setCancelable(false);
+				connectToFacebook();
     }
 
     public void connectToFacebook(){
@@ -72,26 +79,23 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
 
     
     class SetStatus extends AsyncTask{
-    	ProgressDialog progress;
+
     	@Override
     	public void onPostExecute(Object a){
     		progress.dismiss();
+    		finish();
     	}
     	@Override
     	protected Object doInBackground(Object... arg0) {
-    		progress = ProgressDialog.show(FacebookLoginActivity.this, "Invio",
-				    "Invio al server dei dati", true);
-			progress.setCancelable(false);
     		try{
     			graphApi.setStatus(
-    					getIntent().getStringExtra("nick")+
-							" ha totalizzato un punteggio di "+
-								getIntent().getStringExtra("points")+" salti", 
+							".", 
 						"http://enimrac92.altervista.org/bdSir/ic_launcher.png",
 						"https://play.google.com/store/apps/details?id=it.carmine.bouncyrun", 
 						"Il mio punteggio su BouncyRun", 
 						"https://play.google.com/store/apps/details?id=it.carmine.bouncyrun",
-                        "Il mio punteggio su BouncyRun"
+						"Ho totalizzato un punteggio di "+
+								getIntent().getStringExtra("points")+" salti"
                    );
     		} catch(EasyFacebookError e){
     			Log.d("TAG: ", e.toString());
