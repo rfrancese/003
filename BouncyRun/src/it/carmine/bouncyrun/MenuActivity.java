@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MenuActivity extends Activity {
 
@@ -24,6 +25,8 @@ public class MenuActivity extends Activity {
 		
 		Typeface tf=Typeface.createFromAsset(this.getAssets(),
 				"font/pipe.ttf");
+		TextView tv=(TextView)findViewById(R.id.textView1);
+		tv.setTypeface(tf);
 		
 		OnCLick oc=new OnCLick();
 		exit.setOnClickListener(oc);
@@ -54,7 +57,7 @@ public class MenuActivity extends Activity {
 				startActivity(new Intent(MenuActivity.this,ClassificaActivity.class));
 				break;
 			case R.id.button_web:
-				//startActivity(new Intent(MenuActivity.this,TutorialActivity.class));
+				startActivity(new Intent(MenuActivity.this,TutorialActivity.class));
 				break;	
 			case R.id.button_registrazione:
 				startActivity(new Intent(MenuActivity.this,RegistrazioneActivity.class));

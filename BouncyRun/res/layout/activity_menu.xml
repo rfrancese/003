@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
+    android:gravity="center"
     tools:context="${packageName}.${activityClass}" >
 
     <Button
@@ -66,6 +67,26 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/button_play"
+        android:src="@drawable/cloud_small" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_exit"
+        android:layout_centerHorizontal="true"
+        android:text="BouncyRun"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp" />
+
+    <ImageView
+        android:id="@+id/ImageView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button_play"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/button_registrazione"
         android:src="@drawable/cloud_small" />
 
 </RelativeLayout>
