@@ -452,7 +452,7 @@ public class GameView extends View {
 	private int isOnTerrace(Ball b) throws GameOverException{
 		for(int i=0;i<terraceNum;i++)
 			//getWidth/2 per determinare il centro
-			if(b.getX()+(ball.getWidth()/2) > trA.get(i).getX()){//la palla è oltre il bordo sx
+			if(b.getX() >= (trA.get(i).getX()-(ball.getWidth()))){//la palla è oltre il bordo sx
 				if(b.getX() < trA.get(i).getX()+terrace.getWidth()){//la palla non è oltre il bordo dx
 					if((b.getY()+(ball.getHeight()/2)) == (trA.get(i).getY()-terrace.getHeight())){//palla sopra la barra - perché è a scendere!
 						if(trA.get(i).hasObstacle()) throw new GameOverException();
