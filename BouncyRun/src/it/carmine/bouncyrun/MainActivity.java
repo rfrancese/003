@@ -46,11 +46,10 @@ public class MainActivity extends Activity {
 	private SqlStorage sql;
 	private String nick;
 	private Typeface tf;
-	private boolean mustrestart=false;
+	private boolean mustrestart=false,mustshare=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		tf=Typeface.createFromAsset(this.getAssets(),
 				"font/pipe.ttf");
 		
@@ -121,6 +120,7 @@ public class MainActivity extends Activity {
 				facebook_share.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View v) {
+						mustshare=true;
 						if(isOnline()){
 							Intent i=new Intent(MainActivity.this,FacebookLoginActivity.class);
 							i.putExtra("points", gw.getPoint().getP()+"");
@@ -139,14 +139,17 @@ public class MainActivity extends Activity {
 				});
 				
 				altro_share.setOnClickListener(new OnClickListener(){
+					
 					@Override
 					public void onClick(View v) {
+						
+						mustshare=true;
 						Intent sendIntent = new Intent();
 						sendIntent.setAction(Intent.ACTION_SEND);
 						sendIntent.putExtra(
 								Intent.EXTRA_TEXT, "Ho raggiungo un punteggio di "+
 										gw.getPoint().getP()+" su BouncyRun, scaricalo anche tu!"+
-											" url"
+											" https://play.google.com/store/apps/details?id=it.carmine.bouncyrun"
 										);
 						sendIntent.setType("text/plain");
 						startActivity(sendIntent);
@@ -298,7 +301,7 @@ public class MainActivity extends Activity {
 		gw.stopAllExecution();
 		if(mustrestart){
 			startActivity(getIntent());
-		}else{
+		}else if(!mustshare){
 			startActivity(new Intent(MainActivity.this,BannerActivity.class));
 		}
 	}

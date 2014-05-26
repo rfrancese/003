@@ -257,7 +257,7 @@ public class GameView extends View {
 				int pY=rm.nextInt(height);
 				if(i==0){
 					pX=terracePos[i];
-					pY=terracePos[i];
+					pY=b.jump()-ball.getHeight();
 				}
 				terra=new Terrace(
 					pX,
