@@ -494,7 +494,7 @@ public class GameView extends View {
 				}
 				//sposto
 				if(vector_y>1){
-					if(b.getX()<width)
+					if((b.getX()+ball.getWidth())<width)
 						b.moveXF();
 				}else if(vector_y<-1){
 					if(b.getX()>0)
