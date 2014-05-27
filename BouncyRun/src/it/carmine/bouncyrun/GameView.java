@@ -36,7 +36,7 @@ public class GameView extends View {
 	
 	private final int sleepCloud=200;
 	private int sleepTerrace=10;
-	private final int sleepBall=3;
+	private int sleepBall=3;
 
 	private boolean isNotGameOver=true;
 	private GameOverListner gol;
@@ -102,7 +102,9 @@ public class GameView extends View {
 		
 		this.width=width;
 		this.height=height;
-
+		if(height>700){
+			sleepBall=1;
+		}
 		//per il salto
 		a=new BallJump();
 		
@@ -311,7 +313,11 @@ public class GameView extends View {
 			//punteggio
 			p.setTypeface(Typeface.createFromAsset(this.c.getAssets(),
 					"font/pipe.ttf"));
-			p.setTextSize(40);
+			if(height>700){
+				p.setTextSize(80);
+			}else{
+				p.setTextSize(40);
+			}
 			p.setColor(Color.WHITE);
 			c.drawText(incrementer.getP()+"", 40, 45, p);
 		}else{
@@ -332,7 +338,11 @@ public class GameView extends View {
 			//messaggio per avvisare su come iniziare il gioco
 			p.setTypeface(Typeface.createFromAsset(this.c.getAssets(),
 					"font/pipe.ttf"));
-			p.setTextSize(30);
+			if(height>700){
+				p.setTextSize(80);
+			}else{
+				p.setTextSize(30);
+			}
 			p.setColor(Color.WHITE);
 			c.drawText(getResources().getString(R.string.game_how_to_start), 40, 45, p);
 			
