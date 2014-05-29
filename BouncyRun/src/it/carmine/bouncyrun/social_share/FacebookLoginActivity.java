@@ -25,7 +25,7 @@ public class FacebookLoginActivity extends Activity implements LoginListener {
     private FBLoginManager fbLoginManager;
 	private ProgressDialog progress;
     //replace it with your own Facebook App ID
-    public final String KODEFUNFBAPP_ID = "294476200715169";
+    public final String KODEFUNFBAPP_ID = "166002980245517";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
