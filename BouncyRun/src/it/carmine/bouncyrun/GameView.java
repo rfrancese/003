@@ -1,11 +1,9 @@
 package it.carmine.bouncyrun;
 
 import it.carmine.bouncyrun.control.GameOverListner;
-import it.carmine.bouncyrun.model.GameOverText;
 import it.carmine.bouncyrun.model.bonus.Incrementer;
 import it.carmine.bouncyrun.model.items.Ball;
 import it.carmine.bouncyrun.model.items.Cloud;
-import it.carmine.bouncyrun.model.items.Star;
 import it.carmine.bouncyrun.model.items.Terrace;
 import it.carmine.bouncyrun.threads.CloudMove;
 import it.carmine.bouncyrun.threads.TerraceMove;
@@ -14,7 +12,6 @@ import it.carmine.bouncyrun.user.GameSettings;
 import java.util.ArrayList;
 import java.util.Random;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,11 +23,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.widget.TextView;
 
 public class GameView extends View {
 	
