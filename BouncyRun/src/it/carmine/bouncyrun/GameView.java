@@ -507,7 +507,7 @@ public class GameView extends View {
 					if((b.getX()+ball.getWidth())<width)
 						b.moveXF();
 				}else if(vector_y<-1){
-					if(b.getX()>0)
+					if(b.getX()>1)
 						b.moveXB();
 				}
 			}
